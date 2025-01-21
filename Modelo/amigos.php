@@ -22,6 +22,13 @@
             $consulta=$this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("i",$asig);
             $consulta->bind_result($id,$nombre);
-            $consulta->execute();
+            return $consulta->execute();
+        }
+
+        public function insertar($id_usuario, $nombre, $apellidos, $fecha_nacimiento) {
+            $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?)";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("isss",$id_usuario, $nombre, $apellidos, $fecha_nacimiento);
+            return $consulta->execute();
         }
     }
