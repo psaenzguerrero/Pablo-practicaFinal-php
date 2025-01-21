@@ -9,10 +9,10 @@ require_once("../modelo/prestamos.php");
 function login() {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $nombre_usuario = $_POST['nombre_usuario'];
-        $contraseña = $_POST['contraseña'];
+        $contrasena = $_POST['contrasena'];
         $usuario = new Usuario();
 
-        if ($usuario->login($nombre_usuario, $contraseña)) {
+        if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
             $_SESSION['id_usuario'] = $usuario->id_usuario;
             header("Location: index.php?action=dashboard");
@@ -21,6 +21,7 @@ function login() {
             require_once("../vistas/login.php");
         }
     } else {
+        
         require_once("../vistas/login.php");
     }
 }
@@ -32,8 +33,7 @@ function dashboard() {
         header("Location: index.php?action=login");
         exit;
     }
-
-    require_once("../vistas/dashboard.php");
+    require_once("../vistas/paginaInicio.php");
 }
 
 // Función para manejar la lista de amigos

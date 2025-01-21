@@ -3,10 +3,10 @@
 
     class usuario{
         private $conn;
-        private $id_usuario;
-        private $nombre_usuario;
-        private $contrasena;
-        private $tipo;
+        public $id_usuario;
+        public $nombre_usuario;
+        public $contrasena;
+        public $tipo;
 
         public function __construct(){
             $this->conn=new bd();
@@ -16,18 +16,22 @@
             $this->tipo;
         }
 
-        public function login($nombre_usuario, $contraseña) {
-            $sentencia = "SELECT id_usuario, contraseña FROM usuarios WHERE nombre_usuario = ?";
+        public function login($nombre_usuario, $contrasena) {
+            $sentencia = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
-            $consulta->bind_param("s", $nombre_usuario);
+            $consulta->bind_param("ss", $nombre_usuario, $contrasena);
+            
+            $consulta->bind_result($numero);
             $consulta->execute();
-            $consulta->bind_result($id_usuario, $hash);
-    
-            if ($consulta->fetch() && password_verify($contraseña, $hash)) {
-                $this->id_usuario = $id_usuario;
+            $consulta->fetch();
+                
+            if ($numero == 0) {
+                return false;
+            }else{
                 return true;
             }
-            return false;
+            
+            
         }
 
         public function obtenerTipoUsu($nombreU){

@@ -1,3 +1,6 @@
+<?php
+    require_once("cabeza.html");
+?>
 <body>
     <h1>Mis Amigos</h1>
     <table>
@@ -20,3 +23,6 @@
     </table>
     <a href="index.php?action=agregarAmigo">Agregar Amigo</a>
 </body>
+<?php
+    require_once("pie.html");
+?>

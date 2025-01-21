@@ -1,3 +1,6 @@
+<?php
+    require_once("cabeza.html");
+?>
 <body>
     <h1>Agregar Nuevo Amigo</h1>
     <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
@@ -11,3 +14,6 @@
         <button type="submit">Guardar</button>
     </form>
 </body>
+<?php
+    require_once("pie.html");
+?>
