@@ -44,9 +44,25 @@
         }
         $amigo = new Amigo();
         $datos = $amigo->getAmigos($_SESSION['id_usuario']);
-        require_once("../vistas/cabecera.html");
-        require_once("../vistas/paginaInicio.php");
-        require_once("../vistas/pie.html");
+        require_once("../Vistas/cabeza.html");
+        require_once("../Vistas/paginaInicio.php");
+        require_once("../Vistas/pie.html");
+    }
+    function insertarAmigo() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $amigo = new Amigo();
+            $nombre = $_POST["nombre"];
+            $apellidos = $_POST["apellidos"];
+            $fecha_nacimiento = $_POST["fecha_nacimiento"];
+            $id_usuario = $_SESSION['id_usuario'];
+    
+            $amigo->insertarAmigo($nombre, $apellidos, $fecha_nacimiento, $id_usuario);
+            listarAmigos();
+        } else {
+            require_once("../Vistas/cabeza.html");
+            require_once("../Vistas/paginaInicio.php");
+            require_once("../Vistas/pie.html");
+        }
     }
 
 ?>
