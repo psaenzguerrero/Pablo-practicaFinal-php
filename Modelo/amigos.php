@@ -17,18 +17,19 @@
             $this->fecha_nacimiento;   
         }
 
-        public function obtenerAmigos($id_usuario){
-            $sentencia="SELECT nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_usuario=?;";
-            $consulta=$this->conn->__get("conn")->prepare($sentencia);
-            $consulta->bind_param("i",$asig);
-            $consulta->bind_result($id,$nombre);
-            return $consulta->execute();
+        public function obtenerAmigos($id_usuario) {
+            $sentencia = "SELECT id_amigo, nombre, apellidos, DATE_FORMAT(fecha_nacimiento, '%d/%m/%Y') as fecha_nacimiento FROM amigos WHERE id_usuario = ?";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("i", $id_usuario);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
+            return $resultado->fetch_all(MYSQLI_ASSOC);
         }
-
+    
         public function insertar($id_usuario, $nombre, $apellidos, $fecha_nacimiento) {
             $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?)";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
-            $consulta->bind_param("isss",$id_usuario, $nombre, $apellidos, $fecha_nacimiento);
+            $consulta->bind_param("isss", $id_usuario, $nombre, $apellidos, $fecha_nacimiento);
             return $consulta->execute();
         }
     }

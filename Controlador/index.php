@@ -1,68 +1,99 @@
 <?php
-    require_once("../Modelo/amigos.php");
-    require_once("../Modelo/juegos.php");
-    require_once("../Modelo/prestamos.php");
-    require_once("../Modelo/usuarios.php");
-    
+// Requiere los modelos necesarios
+require_once("../modelo/usuarios.php");
+require_once("../modelo/amigos.php");
+require_once("../modelo/juegos.php");
+require_once("../modelo/prestamos.php");
+
+// Función para manejar el inicio de sesión
+function login() {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $nombre_usuario = $_POST['nombre_usuario'];
+        $contraseña = $_POST['contraseña'];
+        $usuario = new Usuario();
+
+        if ($usuario->login($nombre_usuario, $contraseña)) {
+            session_start();
+            $_SESSION['id_usuario'] = $usuario->id_usuario;
+            header("Location: index.php?action=dashboard");
+        } else {
+            $error = "Credenciales incorrectas.";
+            require_once("../vistas/login.php");
+        }
+    } else {
+        require_once("../vistas/login.php");
+    }
+}
+
+// Función para mostrar el panel principal
+function dashboard() {
     session_start();
-    function login() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $usuario = new Usuario();
-            $nombre_usuario = $_POST["nombre_usuario"];
-            $contraseña = $_POST["contraseña"];
-    
-            if ($usuario->login($nombre_usuario, $contraseña)) {
-                $_SESSION['id_usuario'] = $usuario->id_usuario;
-                $_SESSION['nombre_usuario'] = $nombre_usuario;
-                home();
-            } else {
-                $error = "Usuario o contraseña incorrectos.";
-                require_once("../Vistas/inicioSesion.php");
-            }
-        } else {
-            require_once("../Vistas/inicioSesion.php");
-        }
-    }
-    
-    function home() {
-        if (!isset($_SESSION['id_usuario'])) {
-            header("Location: index.php?action=login");
-            exit();
-        }
-        require_once("../Vistas/paginaInicio.php");
-    }
-    
-    function logout() {
-        session_destroy();
+    if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
-    }
-    
-    function listarAmigos() {
-        if (!isset($_SESSION['id_usuario'])) {
-            header("Location: index.php?action=login");
-            exit();
-        }
-        $amigo = new Amigo();
-        $datos = $amigo->getAmigos($_SESSION['id_usuario']);
-        require_once("../Vistas/cabeza.html");
-        require_once("../Vistas/paginaInicio.php");
-        require_once("../Vistas/pie.html");
-    }
-    function insertarAmigo() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $amigo = new Amigo();
-            $nombre = $_POST["nombre"];
-            $apellidos = $_POST["apellidos"];
-            $fecha_nacimiento = $_POST["fecha_nacimiento"];
-            $id_usuario = $_SESSION['id_usuario'];
-    
-            $amigo->insertarAmigo($nombre, $apellidos, $fecha_nacimiento, $id_usuario);
-            listarAmigos();
-        } else {
-            require_once("../Vistas/cabeza.html");
-            require_once("../Vistas/paginaInicio.php");
-            require_once("../Vistas/pie.html");
-        }
+        exit;
     }
 
+    require_once("../vistas/dashboard.php");
+}
+
+// Función para manejar la lista de amigos
+function listaAmigos() {
+    session_start();
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+
+    $amigo = new Amigo();
+    $amigos = $amigo->obtenerAmigos($_SESSION['id_usuario']);
+    require_once("../vistas/listaAmigos.php");
+}
+
+// Función para agregar un nuevo amigo
+function agregarAmigo() {
+    session_start();
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $nombre = $_POST['nombre'];
+        $apellidos = $_POST['apellidos'];
+        $fecha_nacimiento = $_POST['fecha_nacimiento'];
+
+        $amigo = new Amigo();
+        $resultado = $amigo->insertar($_SESSION['id_usuario'], $nombre, $apellidos, $fecha_nacimiento);
+
+        if ($resultado) {
+            header("Location: index.php?action=listaAmigos");
+        } else {
+            $error = "Error al agregar el amigo.";
+            require_once("../vistas/agregarAmigo.php");
+        }
+    } else {
+        require_once("../vistas/agregarAmigo.php");
+    }
+}
+
+// Función para manejar los juegos
+function listaJuegos() {
+    session_start();
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+
+    $juego = new Juego();
+    $juegos = $juego->obtenerJuegos($_SESSION['id_usuario']);
+    require_once("../vistas/listaJuegos.php");
+}
+
+// Lógica para determinar la acción
+if (isset($_REQUEST["action"])) {
+    $action = strtolower($_REQUEST["action"]);
+    $action(); // Llama a la función correspondiente
+} else {
+    login(); // Muestra la pantalla de inicio de sesión por defecto
+}
 ?>
