@@ -2,7 +2,7 @@
     require_once("class.bd.php");
 
     class usuario{
-        private $conn;
+        public $conn;
         public $id_usuario;
         public $nombre_usuario;
         public $contrasena;
@@ -17,19 +17,15 @@
         }
 
         public function login($nombre_usuario, $contrasena) {
-            $sentencia = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
+            $sentencia = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("ss", $nombre_usuario, $contrasena);
             
-            $consulta->bind_result($numero);
+            $consulta->bind_result($res);
             $consulta->execute();
             $consulta->fetch();
                 
-            if ($numero == 0) {
-                return false;
-            }else{
-                return true;
-            }
+            return $res;
             
             
         }

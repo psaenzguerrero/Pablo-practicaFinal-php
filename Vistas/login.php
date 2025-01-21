@@ -1,5 +1,7 @@
 <?php
     require_once("cabeza.html");
+    session_start();
+    echo "<script>console.log('PHP Session: " . json_encode($_SESSION) . "');</script>";
 ?>
 <body>
 <h1>Iniciar Sesión</h1>

@@ -2,11 +2,12 @@
     require_once("class.bd.php");
 
     class amigo{
-        private $id_amigo;
-        private $id_usuario;
-        private $nombre;
-        private $apellidos;
-        private $fecha_nacimiento;
+        public $conn;
+        public $id_amigo;
+        public $id_usuario;
+        public $nombre;
+        public $apellidos;
+        public $fecha_nacimiento;
 
         public function __construct(){
             $this->conn=new bd();

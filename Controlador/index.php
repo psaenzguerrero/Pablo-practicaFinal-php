@@ -29,7 +29,7 @@ function login() {
 // Función para mostrar el panel principal
 function dashboard() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
@@ -39,12 +39,13 @@ function dashboard() {
 // Función para manejar la lista de amigos
 function listaAmigos() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
-
-    $amigo = new Amigo();
+    $si = "pito";
+echo "<p>".$si."</p>";
+    $amigo = new amigo();
     $amigos = $amigo->obtenerAmigos($_SESSION['id_usuario']);
     require_once("../vistas/listaAmigos.php");
 }
@@ -52,7 +53,7 @@ function listaAmigos() {
 // Función para agregar un nuevo amigo
 function agregarAmigo() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
@@ -79,7 +80,7 @@ function agregarAmigo() {
 // Función para manejar los juegos
 function listaJuegos() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
