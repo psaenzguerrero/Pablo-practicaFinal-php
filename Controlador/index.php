@@ -90,7 +90,7 @@ function agregarAmigo() {
         $apellidos = $_POST['apellidos'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
 
-        $amigo = new Amigo();
+        $amigo = new amigo();
         $resultado = $amigo->insertar($_SESSION['id_usuario'], $nombre, $apellidos, $fecha_nacimiento);
 
         if ($resultado) {
