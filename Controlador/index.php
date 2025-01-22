@@ -18,11 +18,14 @@ function login() {
             header("Location: index.php?action=dashboard");
         } else {
             $error = "Credenciales incorrectas.";
+            require_once("../vistas/cabeza.html");
             require_once("../vistas/login.php");
+            require_once("../vistas/pie.html");
         }
     } else {
-        
+        require_once("../vistas/cabeza.html");
         require_once("../vistas/login.php");
+        require_once("../vistas/pie.html");
     }
 }
 
@@ -33,7 +36,9 @@ function dashboard() {
         header("Location: index.php?action=login");
         exit;
     }
+    require_once("../vistas/cabeza.html");
     require_once("../vistas/paginaInicio.php");
+    require_once("../vistas/pie.html");
 }
 
 // Función para manejar la lista de amigos
@@ -47,7 +52,9 @@ function listaAmigos() {
 echo "<p>".$si."</p>";
     $amigo = new amigo();
     $amigos = $amigo->obtenerAmigos($_SESSION['id_usuario']);
+    require_once("../vistas/cabeza.html");
     require_once("../vistas/listaAmigos.php");
+    require_once("../vistas/pie.html");
 }
 
 // Función para agregar un nuevo amigo
@@ -90,7 +97,6 @@ function listaJuegos() {
     require_once("../vistas/listaJuegos.php");
 }
 
-// Lógica para determinar la acción
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
     $action(); // Llama a la función correspondiente

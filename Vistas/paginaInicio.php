@@ -1,6 +1,3 @@
-<?php
-    echo "<script>console.log('PHP Session: " . json_encode($_SESSION) . "');</script>";
-?>
 <body>
 <h1>Bienvenido al Panel Principal</h1>
     <nav>
