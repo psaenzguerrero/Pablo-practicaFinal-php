@@ -16,15 +16,18 @@
             $this->tipo;
         }
 
-        public function login($nombre_usuario, $contrasena) {
+        public function login(String $nombre_usuario, String $contrasena) {
             $sentencia = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("ss", $nombre_usuario, $contrasena);
+
+       
             
             $consulta->bind_result($res);
             $consulta->execute();
             $consulta->fetch();
                 
+        
             return $res;
             
             

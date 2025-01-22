@@ -12,9 +12,9 @@
         <tbody>
             <?php foreach ($amigos as $amigo): ?>
                 <tr>
-                    <td><?= htmlspecialchars($amigo['nombre']) ?></td>
-                    <td><?= htmlspecialchars($amigo['apellidos']) ?></td>
-                    <td><?= htmlspecialchars($amigo['fecha_nacimiento']) ?></td>
+                    <td><?= $amigo[0] ?></td>
+                    <td><?= $amigo[1] ?></td>
+                    <td><?= $amigo[2] ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -7,14 +7,19 @@ require_once("../modelo/prestamos.php");
 
 // Función para manejar el inicio de sesión
 function login() {
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+   
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {  
+    
+
         $nombre_usuario = $_POST['nombre_usuario'];
         $contrasena = $_POST['contrasena'];
-        $usuario = new Usuario();
-
+ 
+        $usuario = new usuario();
+        
         if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
-            $_SESSION['id_usuario'] = $usuario->id_usuario;
+            $_SESSION['id_usuario'] = $usuario->login($nombre_usuario, $contrasena);
+
             header("Location: index.php?action=dashboard");
         } else {
             $error = "Credenciales incorrectas.";
@@ -32,10 +37,13 @@ function login() {
 // Función para mostrar el panel principal
 function dashboard() {
     session_start();
-    if (isset($_SESSION['id_usuario'])) {
+
+    if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
+    // var_dump($_SESSION);
+    // die();
     require_once("../vistas/cabeza.html");
     require_once("../vistas/paginaInicio.php");
     require_once("../vistas/pie.html");
@@ -44,17 +52,29 @@ function dashboard() {
 // Función para manejar la lista de amigos
 function listaAmigos() {
     session_start();
-    if (isset($_SESSION['id_usuario'])) {
+    $amigo = new amigo();
+    // var_dump($_SESSION);
+    // die();
+    $id_usuario = $_SESSION['id_usuario'];
+    // var_dump($id_usuario);
+    // die();
+
+    if (isset($_SESSION['id_usuario'])!=1) {
         header("Location: index.php?action=login");
         exit;
+    }else{
+        // var_dump($id_usuario);
+        // die();
+        
+        $amigos = $amigo->obtenerAmigos($id_usuario);
+        // var_dump($amigos);
+        // die();
+        require_once("../vistas/cabeza.html");
+        require_once("../vistas/listaAmigos.php");
+        require_once("../vistas/pie.html");
     }
-    $si = "pito";
-echo "<p>".$si."</p>";
-    $amigo = new amigo();
-    $amigos = $amigo->obtenerAmigos($_SESSION['id_usuario']);
-    require_once("../vistas/cabeza.html");
-    require_once("../vistas/listaAmigos.php");
-    require_once("../vistas/pie.html");
+    
+    
 }
 
 // Función para agregar un nuevo amigo
@@ -99,6 +119,7 @@ function listaJuegos() {
 
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
+    echo "<p>".$action."</p>";
     $action(); // Llama a la función correspondiente
 } else {
     login(); // Muestra la pantalla de inicio de sesión por defecto
