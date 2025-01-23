@@ -1,5 +1,5 @@
 <body>
-    <h1>Mis Juegos</h1>
+    <h1>Mis Prestamos</h1>
     <table>
         <thead>
             <tr>
