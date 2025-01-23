@@ -9,6 +9,8 @@
         <input type="text" name="apellidos" required>
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
         <input type="date" name="fecha_nacimiento" required>
+
+        
         <button type="submit">Guardar</button>
     </form>
 </body>

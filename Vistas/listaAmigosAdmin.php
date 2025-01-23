@@ -20,5 +20,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="index.php?action=agregarUsuario">Agregar Usuario</a>
+    <a href="index.php?action=agregarAmigo">Agregar Usuario</a>
 </body>
