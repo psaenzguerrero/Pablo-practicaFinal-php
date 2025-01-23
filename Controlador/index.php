@@ -178,6 +178,24 @@ function agregarJuego(){
         require_once("../vistas/pie.html");
     }
 }
+function listaPrestamos(){
+    session_start();
+    $prestamo = new Prestamo();
+    $id_usuario = $_SESSION['id_usuario'];    
+
+    if (!isset($_SESSION['id_usuario'])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+
+    $prestamos = $prestamo->obtenerPrestamos($id_usuario);
+    // var_dump($id_usuario);
+    // die();
+    require_once("../vistas/cabeza.html");
+    require_once("../vistas/listaPrestamos.php");
+    require_once("../vistas/pie.html");
+}
+
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
     echo "<p>".$action."</p>";
