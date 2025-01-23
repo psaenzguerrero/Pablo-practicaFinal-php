@@ -137,8 +137,10 @@ function agregarAmigo() {
 // Función para manejar los juegos
 function listaJuegos() {
     session_start();
-    $juego = new Juego();
+    $juego = new juego();
     $id_usuario = $_SESSION['id_usuario'];
+    $id_usuario = $_SESSION['id_usuario'];
+    
 
     if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
@@ -146,6 +148,8 @@ function listaJuegos() {
     }
 
     $juegos = $juego->obtenerJuegos($id_usuario);
+    // var_dump($id_usuario);
+    // die();
     require_once("../vistas/cabeza.html");
     require_once("../vistas/listaJuegos.php");
     require_once("../vistas/pie.html");
