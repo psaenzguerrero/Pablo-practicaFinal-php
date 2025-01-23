@@ -1,7 +1,7 @@
 <?php
     require_once("class.bd.php");
 
-    class usuario{
+    class Usuario{
         private $conn;
         public $id_usuario;
         public $nombre_usuario;

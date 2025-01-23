@@ -7,14 +7,14 @@ require_once("../modelo/prestamos.php");
 
 // Función para manejar el inicio de sesión
 function login() {
-   
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {  
     
 
         $nombre_usuario = $_POST['nombre_usuario'];
         $contrasena = $_POST['contrasena'];
  
-        $usuario = new usuario();
+        $usuario = new Usuario();
         
         if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
@@ -42,7 +42,7 @@ function dashboard() {
         exit;
     }
 
-    $tipo = new usuario();
+    $tipo = new Usuario();
 
     $_SESSION['tipo_usuario'] = $tipo->obtenerTipoUsu($_SESSION['id_usuario']);
 
@@ -62,7 +62,7 @@ function dashboard() {
 //Funcion par aver todos los amigos de la base de datos solo para admin
 function listaContactos(){
     session_start();
-    $amigo = new amigo();
+    $amigo = new Amigo();
     $amigos = $amigo->obtenerAllAmigos();
     require_once("../vistas/cabeza.html");
     require_once("../vistas/listaAmigosAdmin.php");
@@ -70,7 +70,7 @@ function listaContactos(){
 }
 function listaUsuariosAdmin(){
     session_start();
-    $usuario = new usuario();
+    $usuario = new Usuario();
     $usuarios = $usuario->obtenerUsuarios();
     require_once("../vistas/cabeza.html");
     require_once("../vistas/listaUsuarios.php");
@@ -79,7 +79,7 @@ function listaUsuariosAdmin(){
 // Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
-    $amigo = new amigo();
+    $amigo = new Amigo();
     // var_dump($_SESSION);
     // die();
     $id_usuario = $_SESSION['id_usuario'];
@@ -116,7 +116,7 @@ function agregarAmigo() {
         $apellidos = $_POST['apellidos'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
 
-        $amigo = new amigo();
+        $amigo = new Amigo();
         $resultado = $amigo->insertar($_SESSION['id_usuario'], $nombre, $apellidos, $fecha_nacimiento);
 
         if ($resultado) {
@@ -137,10 +137,8 @@ function agregarAmigo() {
 // Función para manejar los juegos
 function listaJuegos() {
     session_start();
-    $juego = new juego();
-    $id_usuario = $_SESSION['id_usuario'];
-    $id_usuario = $_SESSION['id_usuario'];
-    
+    $juego = new Juego();
+    $id_usuario = $_SESSION['id_usuario'];    
 
     if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
@@ -154,7 +152,32 @@ function listaJuegos() {
     require_once("../vistas/listaJuegos.php");
     require_once("../vistas/pie.html");
 }
+function agregarJuego(){
+    session_start();
 
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $titulo = $_POST['titulo'];
+        $plataforma = $_POST['plataforma'];
+        $anio_lanzamiento = $_POST['anio_lanzamiento'];
+        $foto = $_POST['foto'];
+
+        $juego = new Juego();
+
+        $resultado = $juego->insertar($_SESSION['id_usuario'],$titulo, $plataforma, $anio_lanzamiento, $foto);
+        if ($resultado) {
+            header("Location: index.php?action=listaJuegos");
+        } else {
+            $error = "Error al agregar el amigo.";
+            require_once("../vistas/cabeza.html");
+            require_once("../vistas/agregarJuego.php");
+            require_once("../vistas/pie.html");
+        }
+    } else {
+        require_once("../vistas/cabeza.html");
+        require_once("../vistas/agregarJuego.php");
+        require_once("../vistas/pie.html");
+    }
+}
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
     echo "<p>".$action."</p>";

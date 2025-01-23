@@ -1,7 +1,7 @@
 <?php
     require_once("class.bd.php");
 
-    class amigo{
+    class Amigo{
         public $conn;
         public $id_amigo;
         public $id_usuario;

@@ -1,7 +1,7 @@
 <?php
     require_once("class.bd.php");
 
-    class juego{
+    class Juego{
         public $conn;
 
         public function __construct(){
@@ -22,10 +22,10 @@
             $consulta->close();
             return $juegos;
         }
-        public function insert($id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto){
-            $sentencia = "INSERT INTO amigos (id_usuario, titulo, plataforma, anio_lanzamiento, foto) VALUES (?, ?, ?, ?,?)";
+        public function insertar($id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto){
+            $sentencia = "INSERT INTO juegos (id_usuario, titulo, plataforma, anio_lanzamiento, foto) VALUES (?, ?, ?, ?,?)";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
-            $consulta->bind_param("isss", $id_usuario, $nombre, $apellidos, $fecha_nacimiento);
+            $consulta->bind_param("issss", $id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto);
             return $consulta->execute();
         }
     }
