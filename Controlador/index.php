@@ -37,19 +37,46 @@ function login() {
 // Función para mostrar el panel principal
 function dashboard() {
     session_start();
-
     if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
-    // var_dump($_SESSION);
+
+    $tipo = new usuario();
+
+    $_SESSION['tipo_usuario'] = $tipo->obtenerTipoUsu($_SESSION['id_usuario']);
+
+    // var_dump($_SESSION['tipo_usuario']);
     // die();
     require_once("../vistas/cabeza.html");
-    require_once("../vistas/paginaInicio.php");
+    if (!strcmp($_SESSION['tipo_usuario'],"usuario")) {
+        require_once("../vistas/paginaInicio.php");
+    }else{
+        require_once("../vistas/paginaInicioAdmin.php");
+    }
+    require_once("../vistas/pie.html");
+    
+
+    
+}
+//Funcion par aver todos los amigos de la base de datos solo para admin
+function listaContactos(){
+    session_start();
+    $amigo = new amigo();
+    $amigos = $amigo->obtenerAllAmigos();
+    require_once("../vistas/cabeza.html");
+    require_once("../vistas/listaAmigosAdmin.php");
     require_once("../vistas/pie.html");
 }
-
-// Función para manejar la lista de amigos
+function listaUsuariosAdmin(){
+    session_start();
+    $usuario = new usuario();
+    $usuarios = $usuario->obtenerUsuarios();
+    require_once("../vistas/cabeza.html");
+    require_once("../vistas/listaUsuarios.php");
+    require_once("../vistas/pie.html");
+}
+// Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
     $amigo = new amigo();
@@ -73,14 +100,13 @@ function listaAmigos() {
         require_once("../vistas/listaAmigos.php");
         require_once("../vistas/pie.html");
     }
-    
-    
+  
 }
 
 // Función para agregar un nuevo amigo
 function agregarAmigo() {
     session_start();
-    if (isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
@@ -97,24 +123,32 @@ function agregarAmigo() {
             header("Location: index.php?action=listaAmigos");
         } else {
             $error = "Error al agregar el amigo.";
+            require_once("../vistas/cabeza.html");
             require_once("../vistas/agregarAmigo.php");
+            require_once("../vistas/pie.html");
         }
     } else {
+        require_once("../vistas/cabeza.html");
         require_once("../vistas/agregarAmigo.php");
+        require_once("../vistas/pie.html");
     }
 }
 
 // Función para manejar los juegos
 function listaJuegos() {
     session_start();
-    if (isset($_SESSION['id_usuario'])) {
+    $juego = new Juego();
+    $id_usuario = $_SESSION['id_usuario'];
+
+    if (!isset($_SESSION['id_usuario'])) {
         header("Location: index.php?action=login");
         exit;
     }
 
-    $juego = new Juego();
-    $juegos = $juego->obtenerJuegos($_SESSION['id_usuario']);
+    $juegos = $juego->obtenerJuegos($id_usuario);
+    require_once("../vistas/cabeza.html");
     require_once("../vistas/listaJuegos.php");
+    require_once("../vistas/pie.html");
 }
 
 if (isset($_REQUEST["action"])) {
