@@ -16,6 +16,7 @@
                     <td><?= $juego[0] ?></td>
                     <td><?= $juego[1] ?></td>
                     <td><?= $juego[2] ?></td>  
+                    <td><a href="index.php?action=modificarJuego">MODIFICAR</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

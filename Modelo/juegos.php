@@ -28,5 +28,33 @@
             $consulta->bind_param("issss", $id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto);
             return $consulta->execute();
         }
+        public function obtenerPorId(int $id_juego) {
+            $sentencia = "SELECT titulo, plataforma, anio_lanzamiento, foto FROM juegos WHERE id_juego = ?";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("i", $id_juego);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
+            $juego = $resultado->fetch_assoc();
+            $consulta->close();
+            return $juego;
+        }
+    
+        public function actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto) {
+            $sentencia = "UPDATE juegos SET titulo = ?, plataforma = ?, anio_lanzamiento = ?, foto = ? WHERE id_juego = ?";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("ssssi", $titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego);
+            $resultado = $consulta->execute();
+            $consulta->close();
+            return $resultado;
+        }
+    
+        public function eliminar($id) {
+            $sentencia = "DELETE FROM juegos WHERE id = ?";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("i", $id);
+            $resultado = $consulta->execute();
+            $consulta->close();
+            return $resultado;
+        }
     }
 ?>

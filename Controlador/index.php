@@ -217,6 +217,50 @@ function agregarJuego(){
         require_once("../vistas/pie.html");
     }
 }
+function modificarJuego() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-juego'])) {
+        $idJuego = $_POST['id-juego'];
+
+        $juegoModel = new Juego();
+        $juego = $juegoModel->obtenerPorId($idJuego);
+
+        include "agregarJuego.php"; // Incluye la vista para modificar un juego
+    } else {
+        echo "Error: Datos inválidos.";
+    }
+}
+
+function guardarCambiosJuego() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-juego'], $_POST['titulo'], $_POST['plataforma'], $_POST['anio_lanzamiento'], $_POST['foto'])) {
+        $idJuego = $_POST['id-juego'];
+        $titulo = $_POST['titulo'];
+        $plataforma = $_POST['plataforma'];
+        $anio_lanzamiento = $_POST['anio_lanzamiento'];
+        $foto = $_POST['foto'];
+
+        $juegoModel = new Juego();
+        $juegoModel->actualizar($idJuego, $titulo, $plataforma, $anio_lanzamiento, $foto);
+
+        header("Location: index.php?action=listarJuegos");
+        exit;
+    } else {
+        echo "Error: Datos inválidos.";
+    }
+}
+
+function eliminarJuego() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-juego'])) {
+        $idJuego = $_POST['id-juego'];
+
+        $juegoModel = new Juego();
+        $juegoModel->eliminar($idJuego);
+
+        header("Location: index.php?action=listarJuegos");
+        exit;
+    } else {
+        echo "Error: Datos inválidos.";
+    }
+}
 function listaPrestamos(){
     session_start();
     $prestamo = new Prestamo();
