@@ -161,7 +161,9 @@ function guardarCambios() {
         $fechaNacimiento = $_POST['fecha_nacimiento'];
 
         // Actualizar los datos del amigo en el modelo
-        Amigo::actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
+        $amigo = new Amigo();
+        $amigox = $amigo->actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
+        
 
         // Redirigir a la lista de amigos
         header("Location: index.php");
