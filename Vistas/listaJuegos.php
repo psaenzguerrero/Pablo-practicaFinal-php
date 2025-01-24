@@ -16,7 +16,12 @@
                     <td><?= $juego[0] ?></td>
                     <td><?= $juego[1] ?></td>
                     <td><?= $juego[2] ?></td>  
-                    <td><a href="index.php?action=modificarJuego">MODIFICAR</a></td>
+                    <td>
+                        <form action="index.php?action=modificarJuego" method="post">
+                            <input type="hidden" name="id_juego" value="<?= $juego[4] ?>">
+                            <input type="submit" value="Modificar">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

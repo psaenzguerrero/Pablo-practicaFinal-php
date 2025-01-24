@@ -20,7 +20,7 @@
                     <td style="display:none"><?= $amigo[3] ?></td>
                     <td>
                         <form action="index.php?action=modificarAmigo" method="post">
-                            <input type="hidden" name="id-amigo" value="<?= htmlspecialchars($amigo[3]) ?>">
+                            <input type="hidden" name="id-amigo" value="<?= $amigo[3] ?>">
                             <input type="submit" value="Modificar">
                         </form>
                     </td>
