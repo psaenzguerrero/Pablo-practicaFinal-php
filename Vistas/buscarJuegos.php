@@ -1,43 +1,38 @@
 <body>
-    <h1>Agregar Nuevo Juego</h1>
-    <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
-    <form method="POST" action="index.php?action=agregarJuego">
-        <label for="titulo">Titulo:</label>
-        <input type="text" name="titulo" required>
-        <br>
-        <label for="plataforma">Plataforma:</label>
-        <input type="text" name="plataforma" required>
-        <br>
-        <label for="anio_lanzamiento">Año de Lanzamiento:</label>
-        <input type="date" name="anio_lanzamiento" required>
-        <br>
-        <label for="foto">Archivo de foto:</label>
-        <input type="text" name="foto" required>
-        <br>
-        <button type="submit">Guardar</button>
+    <h1>Buscar Juegos</h1>
+    <form method="GET" action="index.php">
+        <input type="hidden" name="action" value="buscarJuegos">
+        <label for="busqueda">Buscar por título o plataforma:</label>
+        <input type="text" name="busqueda" placeholder="Escribe algo..." required>
+        <button type="submit">Buscar</button>
     </form>
 
-    <hr>
-
-    <h1>Modificar Juego</h1>
-    <?php if (isset($juego)): ?>
-        <form method="POST" action="index.php?action=guardarCambiosJuego">
-            <input type="hidden" name="id-juego" value="<?= htmlspecialchars($juego['id']) ?>">
-            <label for="titulo">Titulo:</label>
-            <input type="text" name="titulo" value="<?= htmlspecialchars($juego['titulo']) ?>" required>
-            <br>
-            <label for="plataforma">Plataforma:</label>
-            <input type="text" name="plataforma" value="<?= htmlspecialchars($juego['plataforma']) ?>" required>
-            <br>
-            <label for="anio_lanzamiento">Año de Lanzamiento:</label>
-            <input type="date" name="anio_lanzamiento" value="<?= htmlspecialchars($juego['anio_lanzamiento']) ?>" required>
-            <br>
-            <label for="foto">Archivo de foto:</label>
-            <input type="text" name="foto" value="<?= htmlspecialchars($juego['foto']) ?>" required>
-            <br>
-            <button type="submit">Guardar Cambios</button>
-        </form>
-    <?php else: ?>
-        <p style="color: red;">No se encontró el juego para modificar.</p>
+    <?php if (isset($juegos)): ?>
+        <h2>Resultados de la Búsqueda</h2>
+        <?php if (count($juegos) > 0): ?>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Plataforma</th>
+                        <th>Año de Lanzamiento</th>
+                        <th>Foto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($juegos as $juego): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($juego['titulo']) ?></td>
+                            <td><?= htmlspecialchars($juego['plataforma']) ?></td>
+                            <td><?= htmlspecialchars($juego['anio_lanzamiento']) ?></td>
+                            <td><img src="<?= htmlspecialchars($juego['foto']) ?>" alt="Foto" style="width: 50px; height: 50px;"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p>No se encontraron resultados para "<?= htmlspecialchars($_GET['busqueda']) ?>".</p>
+        <?php endif; ?>
     <?php endif; ?>
 </body>
+

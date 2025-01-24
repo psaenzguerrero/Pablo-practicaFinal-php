@@ -56,5 +56,28 @@
             $consulta->close();
             return $resultado;
         }
+        public function buscarJuegos($busqueda, $id_usuario) {
+            $sql = "SELECT id, titulo, plataforma, anio_lanzamiento, foto 
+                    FROM juegos 
+                    WHERE id_usuario = ? AND (titulo LIKE ? OR plataforma LIKE ?)";
+            $stmt = $this->conn->__get("conn")->prepare($sql);
+            $likeBusqueda = "%" . $busqueda . "%";
+            $stmt->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
+            $stmt->execute();
+            $stmt->bind_result($id, $titulo, $plataforma, $anio_lanzamiento, $foto);
+        
+            $juegos = array();
+            while ($stmt->fetch()) {
+                array_push($juegos, [
+                    "id" => $id,
+                    "titulo" => $titulo,
+                    "plataforma" => $plataforma,
+                    "anio_lanzamiento" => $anio_lanzamiento,
+                    "foto" => $foto
+                ]);
+            }
+            $stmt->close();
+            return $juegos;
+        }
     }
 ?>

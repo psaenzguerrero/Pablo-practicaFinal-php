@@ -279,8 +279,10 @@ function buscarJuegos() {
 
         $juegoModel = new Juego();
         $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
-
-        include "buscarJuegos.php"; // Incluye la vista con los resultados
+        
+        require_once("../vistas/cabeza.html");
+        require_once("../vistas/buscarJuegos.php");
+        require_once("../vistas/pie.html");
     } else {
         echo "Error: Parámetros de búsqueda inválidos.";
     }
