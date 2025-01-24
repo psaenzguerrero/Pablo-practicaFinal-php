@@ -272,6 +272,19 @@ function eliminarJuego() {
         require_once("../vistas/pie.html");
     }
 }
+function buscarJuegos() {
+    if (isset($_GET['busqueda']) && isset($_GET['id_usuario'])) {
+        $busqueda = $_GET['busqueda'];
+        $id_usuario = (int) $_GET['id_usuario'];
+
+        $juegoModel = new Juego();
+        $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
+
+        include "buscarJuegos.php"; // Incluye la vista con los resultados
+    } else {
+        echo "Error: Parámetros de búsqueda inválidos.";
+    }
+}
 function listaPrestamos(){
     session_start();
     $prestamo = new Prestamo();
