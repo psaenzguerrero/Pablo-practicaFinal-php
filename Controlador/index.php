@@ -76,6 +76,7 @@ function listaUsuariosAdmin(){
     require_once("../vistas/listaUsuarios.php");
     require_once("../vistas/pie.html");
 }
+
 // Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
@@ -94,6 +95,8 @@ function listaAmigos() {
         // die();
         
         $amigos = $amigo->obtenerAmigos($id_usuario);
+
+        
         // var_dump($amigos);
         // die();
         require_once("../vistas/cabeza.html");
@@ -131,6 +134,40 @@ function agregarAmigo() {
         require_once("../vistas/cabeza.html");
         require_once("../vistas/agregarAmigo.php");
         require_once("../vistas/pie.html");
+    }
+}
+
+function modificarAmigo() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-amigo'])) {
+        $id_amigo = $_POST['id-amigo'];
+
+        // Obtener los datos del amigo desde el modelo
+        $amigo = new Amigo();
+        $amigox = $amigo->obtenerPorId($id_amigo);
+        // Incluir la vista para modificar al amigo
+        require_once("../vistas/cabeza.html");
+        require_once("../vistas/agregarAmigo.php");
+        require_once("../vistas/pie.html");
+    } else {
+        echo "Error: Datos inválidos o método no permitido.";
+    }
+}
+
+function guardarCambios() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-amigo'], $_POST['nombre'], $_POST['apellidos'], $_POST['fecha_nacimiento'])) {
+        $id_amigo = $_POST['id-amigo'];
+        $nombre = $_POST['nombre'];
+        $apellidos = $_POST['apellidos'];
+        $fechaNacimiento = $_POST['fecha_nacimiento'];
+
+        // Actualizar los datos del amigo en el modelo
+        Amigo::actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
+
+        // Redirigir a la lista de amigos
+        header("Location: index.php");
+        exit;
+    } else {
+        echo "Error: Datos inválidos o método no permitido.";
     }
 }
 
