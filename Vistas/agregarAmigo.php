@@ -3,7 +3,7 @@
     <?php
     if (isset($_REQUEST["action"])) {
         $action = strtolower($_REQUEST["action"]);
-        if (strcmp($action, "modificaramigo")) {
+        if (!strcmp($action, "modificaramigo")==0 && !strcmp($action, "modificaramigoadmin")==0) {
             echo "<h1>AGREGAR AMIGO</h1>";
     ?>
             <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
@@ -21,7 +21,12 @@
     ?>
             <?php if ($amigo): ?>
                 <form action="index.php?action=guardarCambios" method="post">
-                    <input type="hidden" name="id-amigo" value="<?= $_POST["id-amigo"] ?>">
+                    <input type="hidden" name="id_amigo" value="<?= $_POST["id_amigo"] ?>">
+                    <?php if(strcmp($action, "modificaramigoadmin")==0): ?>
+                        <input type="hidden" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>">
+                        <label for="nombre_usuario">Nombre Propietario:</label>
+                        <input type="text" id="nombre_usuario" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>" required><br>
+                    <?php endif; ?>    
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" value="<?= $amigox["nombre"] ?>" required>
                     <br>
@@ -38,7 +43,5 @@
     <?php
     }
 }
-    ?>
-    
-    
+    ?> 
 </body>

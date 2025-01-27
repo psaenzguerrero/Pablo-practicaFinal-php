@@ -1,6 +1,6 @@
 <body>
     <h1>Buscar Juegos</h1>
-    <form method="GET" action="index.php">
+    <form method="GET" action="index.php?action=buscarJuegos">
         <input type="hidden" name="action" value="buscarJuegos">
         <label for="busqueda">Buscar por título o plataforma:</label>
         <input type="text" name="busqueda" placeholder="Escribe algo..." required>
@@ -22,10 +22,16 @@
                 <tbody>
                     <?php foreach ($juegos as $juego): ?>
                         <tr>
-                            <td><?= $juego["titulo"] ?></td>
-                            <td><?= $juego["plataforma"] ?></td>
-                            <td><?= $juego["anio_lanzamiento"] ?></td>
-                            <td><img src="<?= $juego["foto"] ?>" alt="Foto" style="width: 50px; height: 50px;"></td>
+                        <td><?= $juego[3] ?></td>
+                        <td><?= $juego[0] ?></td>
+                        <td><?= $juego[1] ?></td>
+                        <td><?= $juego[2] ?></td>  
+                        <td>
+                            <form action="index.php?action=modificarJuego" method="post">
+                                <input type="hidden" name="id_juego" value="<?= $juego[4] ?>">
+                                <input type="submit" value="Modificar">
+                            </form>
+                        </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
