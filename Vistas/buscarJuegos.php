@@ -22,16 +22,16 @@
                 <tbody>
                     <?php foreach ($juegos as $juego): ?>
                         <tr>
-                            <td><?= htmlspecialchars($juego['titulo']) ?></td>
-                            <td><?= htmlspecialchars($juego['plataforma']) ?></td>
-                            <td><?= htmlspecialchars($juego['anio_lanzamiento']) ?></td>
-                            <td><img src="<?= htmlspecialchars($juego['foto']) ?>" alt="Foto" style="width: 50px; height: 50px;"></td>
+                            <td><?= $juego["titulo"] ?></td>
+                            <td><?= $juego["plataforma"] ?></td>
+                            <td><?= $juego["anio_lanzamiento"] ?></td>
+                            <td><img src="<?= $juego["foto"] ?>" alt="Foto" style="width: 50px; height: 50px;"></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
-            <p>No se encontraron resultados para "<?= htmlspecialchars($_GET['busqueda']) ?>".</p>
+            <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
         <?php endif; ?>
     <?php endif; ?>
 </body>

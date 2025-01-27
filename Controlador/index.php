@@ -11,14 +11,14 @@ function login() {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {  
     
 
-        $nombre_usuario = $_POST['nombre_usuario'];
-        $contrasena = $_POST['contrasena'];
+        $nombre_usuario = $_POST["nombre_usuario"];
+        $contrasena = $_POST["contrasena"];
  
         $usuario = new Usuario();
         
         if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
-            $_SESSION['id_usuario'] = $usuario->login($nombre_usuario, $contrasena);
+            $_SESSION["id_usuario"] = $usuario->login($nombre_usuario, $contrasena);
 
             header("Location: index.php?action=dashboard");
         } else {
@@ -37,14 +37,14 @@ function login() {
 // Función para mostrar el panel principal
 function dashboard() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }
 
     $tipo = new Usuario();
 
-    $_SESSION['tipo_usuario'] = $tipo->obtenerTipoUsu($_SESSION['id_usuario']);
+    $_SESSION["tipo_usuario"] = $tipo->obtenerTipoUsu($_SESSION["id_usuario"]);
 
     // var_dump($_SESSION['tipo_usuario']);
     // die();
@@ -83,11 +83,11 @@ function listaAmigos() {
     $amigo = new Amigo();
     // var_dump($_SESSION);
     // die();
-    $id_usuario = $_SESSION['id_usuario'];
+    $id_usuario = $_SESSION["id_usuario"];
     // var_dump($id_usuario);
     // die();
 
-    if (isset($_SESSION['id_usuario'])!=1) {
+    if (isset($_SESSION["id_usuario"])!=1) {
         header("Location: index.php?action=login");
         exit;
     }else{
@@ -109,18 +109,18 @@ function listaAmigos() {
 // Función para agregar un nuevo amigo
 function agregarAmigo() {
     session_start();
-    if (!isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $fecha_nacimiento = $_POST['fecha_nacimiento'];
+        $nombre = $_POST["nombre"];
+        $apellidos = $_POST["apellidos"];
+        $fecha_nacimiento = $_POST["fecha_nacimiento"];
 
         $amigo = new Amigo();
-        $resultado = $amigo->insertar($_SESSION['id_usuario'], $nombre, $apellidos, $fecha_nacimiento);
+        $resultado = $amigo->insertar($_SESSION["id_usuario"], $nombre, $apellidos, $fecha_nacimiento);
 
         if ($resultado) {
             header("Location: index.php?action=listaAmigos");
@@ -138,8 +138,8 @@ function agregarAmigo() {
 }
 
 function modificarAmigo() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-amigo'])) {
-        $id_amigo = $_POST['id-amigo'];
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id-amigo"])) {
+        $id_amigo = $_POST["id-amigo"];
 
         // Obtener los datos del amigo desde el modelo
         $amigo = new Amigo();
@@ -154,11 +154,11 @@ function modificarAmigo() {
 }
 
 function guardarCambios() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id-amigo'], $_POST['nombre'], $_POST['apellidos'], $_POST['fecha_nacimiento'])) {
-        $id_amigo = $_POST['id-amigo'];
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $fechaNacimiento = $_POST['fecha_nacimiento'];
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id-amigo"], $_POST["nombre"], $_POST["apellidos"], $_POST["fecha_nacimiento"])) {
+        $id_amigo = $_POST["id-amigo"];
+        $nombre = $_POST["nombre"];
+        $apellidos = $_POST["apellidos"];
+        $fechaNacimiento = $_POST["fecha_nacimiento"];
 
         // Actualizar los datos del amigo en el modelo
         $amigo = new Amigo();
@@ -177,9 +177,9 @@ function guardarCambios() {
 function listaJuegos() {
     session_start();
     $juego = new Juego();
-    $id_usuario = $_SESSION['id_usuario'];    
+    $id_usuario = $_SESSION["id_usuario"];    
 
-    if (!isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }
@@ -195,14 +195,14 @@ function agregarJuego(){
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $titulo = $_POST['titulo'];
-        $plataforma = $_POST['plataforma'];
-        $anio_lanzamiento = $_POST['anio_lanzamiento'];
-        $foto = $_POST['foto'];
+        $titulo = $_POST["titulo"];
+        $plataforma = $_POST["plataforma"];
+        $anio_lanzamiento = $_POST["anio_lanzamiento"];
+        $foto = $_POST["foto"];
 
         $juego = new Juego();
 
-        $resultado = $juego->insertar($_SESSION['id_usuario'],$titulo, $plataforma, $anio_lanzamiento, $foto);
+        $resultado = $juego->insertar($_SESSION["id_usuario"],$titulo, $plataforma, $anio_lanzamiento, $foto);
         if ($resultado) {
             header("Location: index.php?action=listaJuegos");
         } else {
@@ -236,12 +236,12 @@ function modificarJuego() {
 }
 
 function guardarCambiosJuego() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_juego'], $_POST['titulo'], $_POST['plataforma'], $_POST['anio_lanzamiento'], $_POST['foto'])) {
-        $id_juego = $_POST['id_juego'];
-        $titulo = $_POST['titulo'];
-        $plataforma = $_POST['plataforma'];
-        $anio_lanzamiento = $_POST['anio_lanzamiento'];
-        $foto = $_POST['foto'];
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"], $_POST["titulo"], $_POST["plataforma"], $_POST["anio_lanzamiento"], $_POST["foto"])) {
+        $id_juego = $_POST["id_juego"];
+        $titulo = $_POST["titulo"];
+        $plataforma = $_POST["plataforma"];
+        $anio_lanzamiento = $_POST["anio_lanzamiento"];
+        $foto = $_POST["foto"];
 
         $juegoModel = new Juego();
         $juegoModel->actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto);
@@ -257,8 +257,8 @@ function guardarCambiosJuego() {
 }
 
 function eliminarJuego() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_juego'])) {
-        $id_juego = $_POST['id_juego'];
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"])) {
+        $id_juego = $_POST["id_juego"];
 
         $juegoModel = new Juego();
         $juegoModel->eliminar($id_juego);
@@ -273,9 +273,9 @@ function eliminarJuego() {
     }
 }
 function buscarJuegos() {
-    if (isset($_GET['busqueda']) && isset($_GET['id_usuario'])) {
-        $busqueda = $_GET['busqueda'];
-        $id_usuario = (int) $_GET['id_usuario'];
+    if (isset($_GET["busqueda"]) && isset($_GET["id_usuario"])) {
+        $busqueda = $_GET["busqueda"];
+        $id_usuario = (int) $_GET["id_usuario"];
 
         $juegoModel = new Juego();
         $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
@@ -290,9 +290,9 @@ function buscarJuegos() {
 function listaPrestamos(){
     session_start();
     $prestamo = new Prestamo();
-    $id_usuario = $_SESSION['id_usuario'];    
+    $id_usuario = $_SESSION["id_usuario"];    
 
-    if (!isset($_SESSION['id_usuario'])) {
+    if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }
