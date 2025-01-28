@@ -1,6 +1,6 @@
 <body>
     <h1>Usuarios del Servidor</h1>
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>id</th>

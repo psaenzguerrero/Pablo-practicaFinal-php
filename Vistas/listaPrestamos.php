@@ -1,6 +1,6 @@
 <body>
     <h1>Mis Prestamos</h1>
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>AMIGO</th>

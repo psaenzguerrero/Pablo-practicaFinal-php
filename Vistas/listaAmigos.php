@@ -14,7 +14,7 @@
             <h2>Resultados de la Búsqueda</h2>
             <?php if (count($amigos) > 0): ?>
                 <h1>Mis Amigos</h1>
-                <table>
+                <table border="1">
                     <thead>
                         <tr>
                             <th>Nombre</th>
