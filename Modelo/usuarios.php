@@ -43,5 +43,14 @@
             $consulta->fetch();
             return $tip;
         }
+        public function obtenerId($nombre_usuario){
+            $sentencia="SELECT id_usuario FROM usuarios WHERE nombre_usuario=?;";
+            $consulta=$this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("s",$nombre_usuario);
+            $consulta->bind_result($id_usuario);
+            $consulta->execute();
+            $consulta->fetch();
+            return $id_usuario;
+        }
     }
 ?>

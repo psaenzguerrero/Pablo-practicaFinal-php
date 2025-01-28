@@ -22,7 +22,6 @@
                             <th>Fecha de Nacimiento</th>
                             <th>MODIFICAR</th>
                             <th style="display:none">id-amigo</th>
-                            <?php if(isset($prueba)) echo '<th>PRUEBA</th>'; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +91,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="index.php?action=agregarAmigo">Agregar Usuario</a>
+                <a href="index.php?action=agregarAmigoAdmin">Agregar Contacto</a>
             <?php else: ?>
                 <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
             <?php endif; ?>

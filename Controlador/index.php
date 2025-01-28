@@ -132,6 +132,38 @@ function agregarAmigo() {
         require_once("../vistas/pie.html");
     }
 }
+function agregarAmigoAdmin() {
+    session_start();
+    $usuario = new Usuario();
+
+    $usuarios = $usuario->obtenerUsuarios();
+
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $nombre = $_POST["nombre"];
+        $apellidos = $_POST["apellidos"];
+        $fecha_nacimiento = $_POST["fecha_nacimiento"];
+        $amigo = new Amigo();
+        
+        $resultado = $amigo->insertar($_POST["nombre_usuario"], $nombre, $apellidos, $fecha_nacimiento);
+
+        if ($resultado) {
+            header("Location: index.php?action=listaContactos");
+        } else {
+            $error = "Error al agregar el amigo.";
+            require_once("../vistas/cabeza.html");
+            require_once("../vistas/agregarAmigo.php");
+            require_once("../vistas/pie.html");
+        }
+    } else {
+        require_once("../vistas/cabeza.html");
+        require_once("../vistas/agregarAmigo.php");
+        require_once("../vistas/pie.html");
+    }
+}
 function modificarAmigo() {
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"])) {
         $id_amigo = $_POST["id_amigo"];
