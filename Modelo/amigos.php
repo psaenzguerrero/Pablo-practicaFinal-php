@@ -64,4 +64,38 @@
             $consulta->bind_param("isss", $id_usuario, $nombre, $apellidos, $fecha_nacimiento);
             return $consulta->execute();
         }
+        public function buscarAmigos($busqueda, $id_usuario) {
+            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento 
+                    FROM amigos 
+                    WHERE id_usuario = ? AND (nombre LIKE ? OR apellidos LIKE ?)";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $likeBusqueda = "%" . $busqueda . "%";
+            $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
+            $consulta->execute();
+            $consulta->bind_result($id_amigo, $nombre, $apellidos, $fecha_nacimiento);
+        
+            $amigos = array();
+            while ($consulta->fetch()) {
+                array_push($amigos, [$nombre, $apellidos, $fecha_nacimiento, $id_amigo]);
+            }
+            $consulta->close();
+            return $amigos;
+        }
+        public function buscarAmigosAdmin($busqueda) {
+            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento, nombre_usuario
+                    FROM amigos, usuarios 
+                    WHERE usuarios.id_usuario=amigos.id_usuario AND (nombre LIKE ? OR apellidos LIKE ?)";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $likeBusqueda = "%" . $busqueda . "%";
+            $consulta->bind_param("ss", $likeBusqueda, $likeBusqueda);
+            $consulta->execute();
+            $consulta->bind_result($id_amigo, $nombre, $apellidos, $fecha_nacimiento, $nombre_usuario);
+        
+            $amigos = array();
+            while ($consulta->fetch()) {
+                array_push($amigos, [$nombre, $apellidos, $fecha_nacimiento, $nombre_usuario, $id_amigo]);
+            }
+            $consulta->close();
+            return $amigos;
+        }
     }

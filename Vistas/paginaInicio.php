@@ -1,3 +1,6 @@
+<?php 
+    if (!strcmp($_SESSION['tipo_usuario'],"admin")==0){
+?>
 <body>
 <h1>Bienvenido al Panel Principal</h1>
     <nav>
@@ -8,3 +11,18 @@
         </ul>
     </nav>
 </body>
+<?php
+    }else{
+?>
+<body>
+<h1>Bienvenido al Panel Principal</h1>
+    <nav>
+        <ul>
+            <li><a href="index.php?action=listaContactos">Lista de Contactos</a></li>
+            <li><a href="index.php?action=listaUsuariosAdmin">Lista de Usuarios</a></li>
+        </ul>
+    </nav>
+</body>
+<?php
+    }
+?>

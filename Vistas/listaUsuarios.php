@@ -1,5 +1,5 @@
 <body>
-    <h1>Mis Usuarios</h1>
+    <h1>Usuarios del Servidor</h1>
     <table>
         <thead>
             <tr>

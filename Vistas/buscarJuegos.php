@@ -1,10 +1,10 @@
 <body>
     <h1>Buscar Juegos</h1>
-    <form method="GET" action="index.php?action=buscarJuegos">
-        <input type="hidden" name="action" value="buscarJuegos">
+    <form method="POST" action="index.php?action=buscarJuegos">
+        <input type="hidden" name="id_juego" value="buscarJuegos">
         <label for="busqueda">Buscar por título o plataforma:</label>
-        <input type="text" name="busqueda" placeholder="Escribe algo..." required>
-        <button type="submit">Buscar</button>
+        <input type="text" name="busqueda"  placeholder="Escribe algo..." required>
+        <button type="submit" value="buscarJuegos">Buscar</button>
     </form>
 
     <?php if (isset($juegos)): ?>
@@ -13,10 +13,10 @@
             <table border="1">
                 <thead>
                     <tr>
+                        <th>Foto</th>
                         <th>Título</th>
                         <th>Plataforma</th>
-                        <th>Año de Lanzamiento</th>
-                        <th>Foto</th>
+                        <th>Año de Lanzamiento</th>    
                     </tr>
                 </thead>
                 <tbody>

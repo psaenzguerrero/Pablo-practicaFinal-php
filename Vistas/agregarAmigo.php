@@ -19,27 +19,26 @@
     <?php
         }else{
     ?>
-            <?php if ($amigo): ?>
-                <form action="index.php?action=guardarCambios" method="post">
-                    <input type="hidden" name="id_amigo" value="<?= $_POST["id_amigo"] ?>">
-                    <?php if(strcmp($action, "modificaramigoadmin")==0): ?>
-                        <input type="hidden" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>">
-                        <label for="nombre_usuario">Nombre Propietario:</label>
-                        <input type="text" id="nombre_usuario" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>" required><br>
-                    <?php endif; ?>    
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" value="<?= $amigox["nombre"] ?>" required>
-                    <br>
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" value="<?= $amigox["apellidos"] ?>" required>
-                    <br>
-                    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $amigox["fecha_nacimiento"] ?>" required>
-                    <br>
-                    <button type="submit">Guardar Cambios</button>
-                </form>
-            <?php endif; ?>
-        
+        <?php if ($amigo): ?>
+            <form action="index.php?action=guardarCambios" method="post">
+                <input type="hidden" name="id_amigo" value="<?= $_POST["id_amigo"] ?>">
+                <?php if(strcmp($action, "modificaramigoadmin")==0): ?>
+                    <input type="hidden" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>">
+                    <label for="nombre_usuario">Nombre Propietario:</label>
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>" required><br>
+                <?php endif; ?>    
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="<?= $amigox["nombre"] ?>" required>
+                <br>
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" value="<?= $amigox["apellidos"] ?>" required>
+                <br>
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $amigox["fecha_nacimiento"] ?>" required>
+                <br>
+                <button type="submit">Guardar Cambios</button>
+            </form>
+        <?php endif; ?>
     <?php
     }
 }
