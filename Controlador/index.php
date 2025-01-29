@@ -16,12 +16,12 @@ function login() {
             header("Location: index.php?action=dashboard");
         } else {
             $error = "Credenciales incorrectas.";
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/login.php");
             require_once("../vistas/pie.html");
         }
     } else {
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/login.php");
         require_once("../vistas/pie.html");
     }
@@ -35,7 +35,7 @@ function dashboard() {
     }
     $tipo = new Usuario();
     $_SESSION["tipo_usuario"] = $tipo->obtenerTipoUsu($_SESSION["id_usuario"]);
-    require_once("../vistas/cabeza.html");
+    require_once("../vistas/cabeza.php");
     require_once("../vistas/paginaInicio.php");
     require_once("../vistas/pie.html");   
 }
@@ -44,7 +44,7 @@ function listaContactos(){
     session_start();
     $amigo = new Amigo();
     $amigos = $amigo->obtenerAllAmigos();
-    require_once("../vistas/cabeza.html");
+    require_once("../vistas/cabeza.php");
     require_once("../vistas/listaAmigos.php");
     require_once("../vistas/pie.html");
 }
@@ -52,7 +52,7 @@ function listaUsuariosAdmin(){
     session_start();
     $usuario = new Usuario();
     $usuarios = $usuario->obtenerUsuarios();
-    require_once("../vistas/cabeza.html");
+    require_once("../vistas/cabeza.php");
     require_once("../vistas/listaUsuarios.php");
     require_once("../vistas/pie.html");
 }
@@ -67,7 +67,7 @@ function listaAmigos() {
         exit;
     }else{
         $amigos = $amigo->obtenerAmigos($id_usuario);
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/listaAmigos.php");
         require_once("../vistas/pie.html");
     }
@@ -89,14 +89,14 @@ function buscarAmigos() {
             $id_usuario = $_SESSION["id_usuario"]; 
             $amigo = new Amigo();
             $amigos = $amigo->buscarAmigos($busqueda, $id_usuario);
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/listaAmigos.php");
             require_once("../vistas/pie.html");
         }else{
             $busqueda = $_POST["busqueda"];
             $amigo = new Amigo();
             $amigos = $amigo->buscarAmigosAdmin($busqueda);
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/listaAmigos.php");
             require_once("../vistas/pie.html");
         }
@@ -122,12 +122,12 @@ function agregarAmigo() {
             header("Location: index.php?action=listaAmigos");
         } else {
             $error = "Error al agregar el amigo.";
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/agregarAmigo.php");
             require_once("../vistas/pie.html");
         }
     } else {
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarAmigo.php");
         require_once("../vistas/pie.html");
     }
@@ -154,12 +154,12 @@ function agregarAmigoAdmin() {
             header("Location: index.php?action=listaContactos");
         } else {
             $error = "Error al agregar el amigo.";
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/agregarAmigo.php");
             require_once("../vistas/pie.html");
         }
     } else {
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarAmigo.php");
         require_once("../vistas/pie.html");
     }
@@ -171,7 +171,7 @@ function modificarAmigo() {
         $amigo = new Amigo();
         $amigox = $amigo->obtenerPorId($id_amigo);
         // Incluir la vista para modificar al amigo
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarAmigo.php");
         require_once("../vistas/pie.html");
     } else {
@@ -187,7 +187,7 @@ function modificarAmigoAdmin() {
         // $amigox = $amigo->obtenerAllAmigos($id_amigo);
         $amigox = $amigo->obtenerPorId($id_amigo);
         // Incluir la vista para modificar al amigo
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarAmigo.php");
         require_once("../vistas/pie.html");
     } else {
@@ -220,7 +220,7 @@ function listaJuegos() {
         exit;
     }
     $juegos = $juego->obtenerJuegos($id_usuario);
-    require_once("../vistas/cabeza.html");
+    require_once("../vistas/cabeza.php");
     require_once("../vistas/buscarJuegos.php");
     require_once("../vistas/pie.html");
 }
@@ -243,12 +243,12 @@ function agregarJuego(){
             header("Location: index.php?action=listaJuegos");
         } else {
             $error = "Error al agregar el amigo.";
-            require_once("../vistas/cabeza.html");
+            require_once("../vistas/cabeza.php");
             require_once("../vistas/agregarJuego.php");
             require_once("../vistas/pie.html");
         }
     } else {
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
         require_once("../vistas/pie.html");
     }
@@ -259,13 +259,13 @@ function modificarJuego() {
         $id_juego = $_POST["id_juego"];
         $juegoModel = new Juego();
         $juego = $juegoModel->obtenerPorId($id_juego);
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
         require_once("../vistas/pie.html");
         
     } else {
         echo "Error: Datos inválidos.";
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
         require_once("../vistas/pie.html");
     }
@@ -284,7 +284,7 @@ function guardarCambiosJuego() {
         exit;
     } else {
         echo "Error: Datos inválidos.";
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
         require_once("../vistas/pie.html");
     }
@@ -299,7 +299,7 @@ function eliminarJuego() {
         exit;
     } else {
         echo "Error: Datos inválidos.";
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
         require_once("../vistas/pie.html");
     }
@@ -321,7 +321,7 @@ function buscarJuegos() {
 
         $juegoModel = new Juego();
         $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
-        require_once("../vistas/cabeza.html");
+        require_once("../vistas/cabeza.php");
         require_once("../vistas/buscarJuegos.php");
         require_once("../vistas/pie.html");
     } else {
@@ -337,7 +337,7 @@ function listaPrestamos(){
         exit;
     }
     $prestamos = $prestamo->obtenerPrestamos($id_usuario);
-    require_once("../vistas/cabeza.html");
+    require_once("../vistas/cabeza.php");
     require_once("../vistas/listaPrestamos.php");
     require_once("../vistas/pie.html");
 }

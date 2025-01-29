@@ -42,21 +42,21 @@
             return $amigos;
         }
         public function obtenerPorId($id_amigo) {
-            $sql = "SELECT nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_amigo = ?";
-            $stmt = $this->conn->__get('conn')->prepare($sql); // Usamos la conexión desde la clase `bd`
-            $stmt->bind_param('i', $id_amigo);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
+            $sentencia = "SELECT nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_amigo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia); // Usamos la conexión desde la clase `bd`
+            $consulta->bind_param('i', $id_amigo);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
             $amigo = $resultado->fetch_assoc();
-            $stmt->close();
+            $consulta->close();
             return $amigo;
         }
         public function actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento) {
-            $sql = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE id_amigo = ?";
-            $stmt = $this->conn->__get('conn')->prepare($sql);
-            $stmt->bind_param('sssi', $nombre, $apellidos, $fechaNacimiento, $id_amigo);
-            $stmt->execute();
-            $stmt->close();
+            $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE id_amigo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param('sssi', $nombre, $apellidos, $fechaNacimiento, $id_amigo);
+            $consulta->execute();
+            $consulta->close();
         }
         public function insertar($id_usuario, $nombre, $apellidos, $fecha_nacimiento) {
             $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?)";
