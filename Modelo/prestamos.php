@@ -27,5 +27,9 @@
             };
             $consulta->close();
             return $prestamos;
-        }}
+        }
+        public function agregarPrestamo(int $id_usuario){
+            
+        }
+    }
             

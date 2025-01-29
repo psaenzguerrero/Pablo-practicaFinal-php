@@ -74,16 +74,11 @@ function listaAmigos() {
 }
 function buscarAmigos() {
     session_start();
- 
-    
     if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }
-   
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"])) {
-
-        
         if (!strcmp($_SESSION["tipo_usuario"],"admin")==0) {
             $busqueda = $_POST["busqueda"];
             $id_usuario = $_SESSION["id_usuario"]; 
@@ -99,8 +94,7 @@ function buscarAmigos() {
             require_once("../vistas/cabeza.php");
             require_once("../vistas/listaAmigos.php");
             require_once("../vistas/pie.html");
-        }
-        
+        } 
     } else {
         echo "Error: Parámetros de búsqueda inválidos.";
     }
@@ -135,9 +129,7 @@ function agregarAmigo() {
 function agregarAmigoAdmin() {
     session_start();
     $usuario = new Usuario();
-
     $usuarios = $usuario->obtenerUsuarios();
-
     if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
@@ -146,10 +138,8 @@ function agregarAmigoAdmin() {
         $nombre = $_POST["nombre"];
         $apellidos = $_POST["apellidos"];
         $fecha_nacimiento = $_POST["fecha_nacimiento"];
-        $amigo = new Amigo();
-        
+        $amigo = new Amigo();       
         $resultado = $amigo->insertar($_POST["nombre_usuario"], $nombre, $apellidos, $fecha_nacimiento);
-
         if ($resultado) {
             header("Location: index.php?action=listaContactos");
         } else {
@@ -184,7 +174,6 @@ function modificarAmigoAdmin() {
         $nombre_usuario = $_POST["nombre_usuario"];
         // Obtener los datos del amigo desde el modelo
         $amigo = new Amigo();
-        // $amigox = $amigo->obtenerAllAmigos($id_amigo);
         $amigox = $amigo->obtenerPorId($id_amigo);
         // Incluir la vista para modificar al amigo
         require_once("../vistas/cabeza.php");
@@ -253,16 +242,14 @@ function agregarJuego(){
         require_once("../vistas/pie.html");
     }
 }
-function modificarJuego() {
-    
+function modificarJuego() { 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"])) {
         $id_juego = $_POST["id_juego"];
         $juegoModel = new Juego();
         $juego = $juegoModel->obtenerPorId($id_juego);
         require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarJuego.php");
-        require_once("../vistas/pie.html");
-        
+        require_once("../vistas/pie.html");     
     } else {
         echo "Error: Datos inválidos.";
         require_once("../vistas/cabeza.php");
@@ -270,8 +257,7 @@ function modificarJuego() {
         require_once("../vistas/pie.html");
     }
 }
-function guardarCambiosJuego() {
-    
+function guardarCambiosJuego() {  
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"], $_POST["titulo"], $_POST["plataforma"], $_POST["anio_lanzamiento"], $_POST["foto"])) {
         $id_juego = $_POST["id_juego"];
         $titulo = $_POST["titulo"];
@@ -313,12 +299,8 @@ function buscarJuegos() {
         exit;
     }
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"])) {
-
-        // var_dump($_SESSION["id_usuario"]);
-        // die();
         $busqueda = $_POST["busqueda"];
         $id_usuario = $_SESSION["id_usuario"]; 
-
         $juegoModel = new Juego();
         $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
         require_once("../vistas/cabeza.php");
@@ -340,6 +322,15 @@ function listaPrestamos(){
     require_once("../vistas/cabeza.php");
     require_once("../vistas/listaPrestamos.php");
     require_once("../vistas/pie.html");
+}
+function agrgarPrestamo(){
+    session_start();
+    $prestamo = new Prestamo();
+    $id_usuario = $_SESSION["id_usuario"];    
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
 }
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
