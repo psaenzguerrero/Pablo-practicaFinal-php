@@ -51,6 +51,25 @@
             $consulta->bind_param("i", $id_prestamo);
             return $consulta->execute();
         }
+        public function buscarPrestamos($busqueda, $id_usuario) {
+            $sentencia = "SELECT id_prestamo, amigos.nombre, juegos.titulo, anio_lanzamiento, foto, devuelto 
+                          FROM prestamos, amigos, juegos
+                          WHERE prestamos.id_amigo=amigos.id_amigo AND prestamos.id_juego=juegos.id_juego AND prestamos.id_usuario = ? AND (nombre LIKE ? OR titulo LIKE ?)";
+            
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $likeBusqueda = "%" . $busqueda . "%";
+            $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
+            $consulta->execute();
+            $consulta->bind_result($id_prestamo, $amigo, $titulo, $anio_lanzamiento, $foto, $devuelto);
+        
+            $prestamos = array();
+            while ($consulta->fetch()) {
+                array_push($prestamos, [$amigo, $titulo, $anio_lanzamiento, $foto, $devuelto, $id_prestamo]);
+            }
+            $consulta->close();
+            return $prestamos;
+        }
+        
         
     }
             

@@ -416,6 +416,30 @@ function eliminarPrestamo() {
         require_once("../vistas/pie.html");
     }
 }
+function buscarPrestamos() {
+    session_start();
+    
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $busqueda = $_POST["busqueda"];
+        $id_usuario = $_SESSION["id_usuario"]; 
+        $prestamo = new Prestamo();
+
+        $prestamos = $prestamo->buscarPrestamos($busqueda, $id_usuario);
+        
+
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/listaPrestamos.php");
+        require_once("../vistas/pie.html");
+    } else {
+        echo "Error: Parámetros de búsqueda inválidos.";
+    }
+}
+
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
     echo "<p>".$action."</p>";
