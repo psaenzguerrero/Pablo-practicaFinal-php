@@ -327,7 +327,6 @@ function listaPrestamos(){
     require_once("../vistas/listaPrestamos.php");
     require_once("../vistas/pie.html");
 }
-
 function agregarPrestamo() {
     session_start();
     $id_usuario = $_SESSION["id_usuario"];
@@ -335,15 +334,11 @@ function agregarPrestamo() {
     $amigos = $amigo->obtenerAmigos($id_usuario);
     $juego = new Juego();
     $juegos = $juego->obtenerJuegos($id_usuario);
-    
-    
-
     if (!isset($id_usuario)) {
         header("Location: index.php?action=login");
         exit;
     }
     $prestamo = new Prestamo();
-    
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $id_amigo = $_POST["id_amigo"];
         $id_juego = $_POST["id_juego"];
@@ -365,19 +360,18 @@ function agregarPrestamo() {
         require_once("../vistas/pie.html");
     }
 }
-
 function modificarPrestamo() { 
     session_start();
+    
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $id_usuario = $_SESSION["id_usuario"];
+        $amigo = new Amigo();
+        $amigos = $amigo->obtenerAmigos($id_usuario);
+        $juego = new Juego();
+        $juegos = $juego->obtenerJuegos($id_usuario);
         $id_prestamo = $_POST["id_prestamo"];
-
-       
         $prestamo = new Prestamo();
-        $prestamos = $prestamo->obtenerPorId($id_prestamo);
-
-        $amigos = array();
-
-        $juegos = array();
+        $prestamos = $prestamo->obtenerPrestamos($id_usuario);
         require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarPrestamo.php");
         require_once("../vistas/pie.html");     
@@ -388,15 +382,14 @@ function modificarPrestamo() {
         require_once("../vistas/pie.html");
     }
 }
-
-function guardarCambiosPrestamo() {  
+function guardarCambiosPrestamo() { 
+    session_start(); 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"], $_POST["id_amigo"], $_POST["id_juego"], $_POST["fecha_prestamo"], $_POST["devuelto"])) {
         $id_prestamo = $_POST["id_prestamo"];
         $id_amigo = $_POST["id_amigo"];
         $id_juego = $_POST["id_juego"];
         $fecha_prestamo = $_POST["fecha_prestamo"];
         $devuelto = $_POST["devuelto"];
-
         $prestamoModel = new Prestamo();
         $prestamoModel->actualizarPrestamo($id_prestamo, $_SESSION["id_usuario"], $id_amigo, $id_juego, $fecha_prestamo, $devuelto);
         header("Location: index.php?action=listaPrestamos");
@@ -408,7 +401,6 @@ function guardarCambiosPrestamo() {
         require_once("../vistas/pie.html");
     }
 }
-
 function eliminarPrestamo() {
     session_start();
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {

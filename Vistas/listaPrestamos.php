@@ -21,7 +21,11 @@
                     <td><?= $prestamo[4] ?></td>
                     <td>
                         <form action="index.php?action=modificarPrestamo" method="post">
+                            <input type="hidden" name="fecha_prestamo" value="<?= $prestamo[3] ?>">
+                            <input type="hidden" name="devuelto" value="<?= $prestamo[4] ?>">
                             <input type="hidden" name="id_prestamo" value="<?= $prestamo[5] ?>">
+                            <input type="hidden" name="id_amigo" value="<?= $prestamo[6] ?>">
+                            <input type="hidden" name="id_juego" value="<?= $prestamo[7] ?>">
                             <input type="submit" value="Modificar">
                         </form>
                     </td>
