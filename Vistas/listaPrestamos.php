@@ -8,6 +8,7 @@
                 <th>FOTO</th>
                 <th>AÑO LANZAMIENTO</th>
                 <th>DEVUELTO</th>
+                <th>MODIFICAR</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,12 @@
                     <td><?= $prestamo[2] ?></td>
                     <td><?= $prestamo[3] ?></td>  
                     <td><?= $prestamo[4] ?></td>
+                    <td>
+                        <form action="index.php?action=modificarPrestamo" method="post">
+                            <input type="hidden" name="id_prestamo" value="<?= $prestamo[5] ?>">
+                            <input type="submit" value="Modificar">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -21,6 +21,7 @@ function login() {
             require_once("../vistas/pie.html");
         }
     } else {
+        session_start();
         require_once("../vistas/cabeza.php");
         require_once("../vistas/login.php");
         require_once("../vistas/pie.html");
@@ -155,6 +156,7 @@ function agregarAmigoAdmin() {
     }
 }
 function modificarAmigo() {
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"])) {
         $id_amigo = $_POST["id_amigo"];
         // Obtener los datos del amigo desde el modelo
@@ -169,6 +171,7 @@ function modificarAmigo() {
     }
 }
 function modificarAmigoAdmin() {
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] === "POST"&& isset($_POST["id_amigo"])&& isset($_POST["nombre_usuario"])) {
         $id_amigo = $_POST["id_amigo"];
         $nombre_usuario = $_POST["nombre_usuario"];
@@ -243,6 +246,7 @@ function agregarJuego(){
     }
 }
 function modificarJuego() { 
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"])) {
         $id_juego = $_POST["id_juego"];
         $juegoModel = new Juego();
@@ -323,13 +327,101 @@ function listaPrestamos(){
     require_once("../vistas/listaPrestamos.php");
     require_once("../vistas/pie.html");
 }
-function agrgarPrestamo(){
+
+function agregarPrestamo() {
     session_start();
-    $prestamo = new Prestamo();
-    $id_usuario = $_SESSION["id_usuario"];    
-    if (!isset($_SESSION["id_usuario"])) {
+    $id_usuario = $_SESSION["id_usuario"];
+    $amigo = new Amigo();
+    $amigos = $amigo->obtenerAmigos($id_usuario);
+    $juego = new Juego();
+    $juegos = $juego->obtenerJuegos($id_usuario);
+    
+    
+
+    if (!isset($id_usuario)) {
         header("Location: index.php?action=login");
         exit;
+    }
+    $prestamo = new Prestamo();
+    
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $id_amigo = $_POST["id_amigo"];
+        $id_juego = $_POST["id_juego"];
+        $fecha_prestamo = $_POST["fecha_prestamo"];
+        $devuelto = isset($_POST["devuelto"]) ? 1 : 0;
+
+        $resultado = $prestamo->insertarPrestamo($id_usuario, $id_amigo, $id_juego, $fecha_prestamo, $devuelto);
+        if ($resultado) {
+            header("Location: index.php?action=listaPrestamos");
+        } else {
+            $error = "Error al agregar el préstamo.";
+            require_once("../vistas/cabeza.php");
+            require_once("../vistas/agregarPrestamo.php");
+            require_once("../vistas/pie.html");
+        }
+    } else {
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");
+    }
+}
+
+function modificarPrestamo() { 
+    session_start();
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $id_prestamo = $_POST["id_prestamo"];
+
+       
+        $prestamo = new Prestamo();
+        $prestamos = $prestamo->obtenerPorId($id_prestamo);
+
+        $amigos = array();
+
+        $juegos = array();
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");     
+    } else {
+        echo "Error: Datos inválidos.";
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");
+    }
+}
+
+function guardarCambiosPrestamo() {  
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"], $_POST["id_amigo"], $_POST["id_juego"], $_POST["fecha_prestamo"], $_POST["devuelto"])) {
+        $id_prestamo = $_POST["id_prestamo"];
+        $id_amigo = $_POST["id_amigo"];
+        $id_juego = $_POST["id_juego"];
+        $fecha_prestamo = $_POST["fecha_prestamo"];
+        $devuelto = $_POST["devuelto"];
+
+        $prestamoModel = new Prestamo();
+        $prestamoModel->actualizarPrestamo($id_prestamo, $_SESSION["id_usuario"], $id_amigo, $id_juego, $fecha_prestamo, $devuelto);
+        header("Location: index.php?action=listaPrestamos");
+        exit;
+    } else {
+        echo "Error: Datos inválidos.";
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");
+    }
+}
+
+function eliminarPrestamo() {
+    session_start();
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $id_prestamo = $_POST["id_prestamo"];
+        $prestamoModel = new Prestamo();
+        $prestamoModel->eliminarPrestamo($id_prestamo);
+        header("Location: index.php?action=listaPrestamos");
+        exit;
+    } else {
+        echo "Error: Datos inválidos.";
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");
     }
 }
 if (isset($_REQUEST["action"])) {
