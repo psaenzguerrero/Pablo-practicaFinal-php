@@ -52,5 +52,28 @@
             $consulta->fetch();
             return $id_usuario;
         }
+        public function insertar($nombre_usuario, $contrasena) {
+            $sentencia = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES (?, ?)";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("ss", $nombre_usuario, $contrasena);
+            return $consulta->execute();
+        }
+        public function obtenerPorId($id_usuario) {
+            $sentencia = "SELECT nombre_usuario, contrasena FROM usuarios WHERE id_usuario = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia); // Usamos la conexión desde la clase `bd`
+            $consulta->bind_param('i', $id_usuario);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
+            $usuario = $resultado->fetch_assoc();
+            $consulta->close();
+            return $usuario;
+        }
+        public function actualizar($nombre_usuario, $contrasena, $id_usuario) {
+            $sentencia = "UPDATE usuarios SET nombre_usuario = ?, contrasena = ? WHERE id_usuario = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param('ssi', $nombre_usuario, $contrasena, $id_usuario);
+            $consulta->execute();
+            $consulta->close();
+        }
     }
 ?>

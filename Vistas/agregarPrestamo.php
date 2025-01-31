@@ -13,7 +13,7 @@
                 <label for="id_amigo">Selecciona un Amigo:</label>
                 <select name="id_amigo" required>
                     <?php foreach ($amigos as $amigo): ?>
-                        <option value="<?= $amigo[4] ?>"><?= $amigo[0] ?></option>
+                        <option value="<?= $amigo[3] ?>"><?= $amigo[0] ?></option>
                     <?php endforeach; ?>
                 </select>
                 <br>

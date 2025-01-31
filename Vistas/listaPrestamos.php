@@ -26,7 +26,9 @@
                                 <tr>
                                     <td><?= $prestamo[0] ?></td>
                                     <td><?= $prestamo[1] ?></td>
-                                    <td><?= $prestamo[2] ?></td>
+                                    <td>
+                                        <img src="../img/<?= $prestamo[2] ?>" alt="">                                        
+                                    </td>
                                     <td><?= $prestamo[3] ?></td>  
                                     <td><?= $prestamo[4] ?></td>
                                     <td>

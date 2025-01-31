@@ -22,7 +22,10 @@
                 <tbody>
                     <?php foreach ($juegos as $juego): ?>
                         <tr>
-                        <td><?= $juego[3] ?></td>
+                        <td>
+                            <img src="../img/<?= $juego[3] ?>" alt="">
+                            
+                        </td>
                         <td><?= $juego[0] ?></td>
                         <td><?= $juego[1] ?></td>
                         <td><?= $juego[2] ?></td>  
@@ -36,6 +39,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <a href="index.php?action=agregarJuego">Agregar Juego</a>
         <?php else: ?>
             <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
         <?php endif; ?>

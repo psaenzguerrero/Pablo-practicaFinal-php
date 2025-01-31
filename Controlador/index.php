@@ -57,6 +57,64 @@ function listaUsuariosAdmin(){
     require_once("../vistas/listaUsuarios.php");
     require_once("../vistas/pie.html");
 }
+function modificarUsuario(){
+    session_start();
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        // $nombre_usuario = $_POST["nombre_usuario"];
+        // $contrasena = $_POST["contrasena"];
+        $id_usuario = $_POST["id_usuario"];
+        // Obtener los datos del usuario desde el modelo
+        $usuario = new Usuario();
+        $usuariox = $usuario->obtenerPorId($id_usuario);
+        // Incluir la vista para modificar al ausuario
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarUsuario.php");
+        require_once("../vistas/pie.html");
+    } else {
+        echo "Error: Datos inválidos o método no permitido.";
+    }
+
+}
+function guardarCambiosUsuarios() {
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_usuario"], $_POST["nombre_usuario"], $_POST["contrasena"])) {
+        $nombre_usuario = $_POST["nombre_usuario"];
+        $contrasena = $_POST["contrasena"];
+        $id_usuario = $_POST["id_usuario"];
+        // Actualizar los datos del usuario en el modelo
+        $usuario = new Usuario();
+        $usuariox = $usuario->actualizar($nombre_usuario, $contrasena, $id_usuario);
+        // Redirigir a la lista de amigos
+        header("Location: index.php");
+        exit;
+    } else {
+        echo "Error: Datos inválidos o método no permitido.";
+    }
+}
+function agregarUsuario(){
+    session_start();
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $nombre_usuario = $_POST["nombre_usuario"];
+        $contrasena = $_POST["contrasena"];
+        $usuario = new Usuario();
+        $resultado = $usuario->insertar($nombre_usuario,$contrasena);
+        if ($resultado) {
+            header("Location: index.php?action=listaUsuariosAdmin");
+        } else {
+            $error = "Error al agregar el usuario.";
+            require_once("../vistas/cabeza.php");
+            require_once("../vistas/agregarUsuario.php");
+            require_once("../vistas/pie.html");
+        }
+    }else {
+    require_once("../vistas/cabeza.php");
+    require_once("../vistas/agregarUsuario.php");
+    require_once("../vistas/pie.html");
+    }
+}
 // Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
@@ -384,14 +442,14 @@ function modificarPrestamo() {
 }
 function guardarCambiosPrestamo() { 
     session_start(); 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"], $_POST["id_amigo"], $_POST["id_juego"], $_POST["fecha_prestamo"], $_POST["devuelto"])) {
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"], $_POST["id_amigo"], $_POST["id_juego"], $_POST["fecha_prestamo"])) {
         $id_prestamo = $_POST["id_prestamo"];
         $id_amigo = $_POST["id_amigo"];
         $id_juego = $_POST["id_juego"];
         $fecha_prestamo = $_POST["fecha_prestamo"];
         $devuelto = $_POST["devuelto"];
-        $prestamoModel = new Prestamo();
-        $prestamoModel->actualizarPrestamo($id_prestamo, $_SESSION["id_usuario"], $id_amigo, $id_juego, $fecha_prestamo, $devuelto);
+        $prestamo = new Prestamo();
+        $prestamos = $prestamo->actualizarPrestamo($id_prestamo, $_SESSION["id_usuario"], $id_amigo, $id_juego, $fecha_prestamo, $devuelto);
         header("Location: index.php?action=listaPrestamos");
         exit;
     } else {
