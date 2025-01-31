@@ -84,7 +84,7 @@ function guardarCambiosUsuarios() {
         $usuario = new Usuario();
         $usuariox = $usuario->actualizar($nombre_usuario, $contrasena, $id_usuario);
         // Redirigir a la lista de amigos
-        header("Location: index.php");
+        header("Location: index.php?action=listaUsuariosAdmin");
         exit;
     } else {
         echo "Error: Datos inválidos o método no permitido.";
