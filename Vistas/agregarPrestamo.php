@@ -34,7 +34,7 @@
                 <input type="checkbox" name="devuelto" value="1">
                 <br>
 
-                <button type="submit">Guardar</button>
+                <button type="submit" class="btn btn-outline-light">Guardar</button>
             </form>
     <?php
         } else {
@@ -72,7 +72,7 @@
                 <input type="checkbox" name="devuelto" value="1" <?= $_POST["devuelto"] ? 'checked' : '' ?>>
                 <br>
 
-                <button type="submit">Guardar Cambios</button>
+                <button type="submit" class="btn btn-outline-light">Guardar Cambios</button>
             </form>
         <?php endif; ?>
     <?php

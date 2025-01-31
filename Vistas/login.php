@@ -6,7 +6,7 @@
         <input type="text" name="nombre_usuario" required>
         <label for="contrasena">Contraseña:</label>
         <input type="password" name="contrasena" required>
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit" class="btn btn-outline-light">Iniciar Sesión</button>
     </form>
 </body>
 

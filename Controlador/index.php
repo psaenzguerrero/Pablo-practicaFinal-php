@@ -115,6 +115,25 @@ function agregarUsuario(){
     require_once("../vistas/pie.html");
     }
 }
+function buscarUsuarios() {
+    session_start();
+
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_usuario"])) {
+        
+            $busqueda = $_POST["busqueda"];
+            $usuario = new Usuario();
+            $usuarios = $usuario->buscarUsuarios($busqueda);
+            require_once("../vistas/cabeza.php");
+            require_once("../vistas/listaUsuarios.php");
+            require_once("../vistas/pie.html");
+    } else {
+        echo "Error: Parámetros de búsqueda inválidos.";
+    }
+}
 // Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
@@ -500,7 +519,7 @@ function buscarPrestamos() {
 
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
-    echo "<p>".$action."</p>";
+    // echo "<p>".$action."</p>";
     $action(); // Llama a la función correspondiente
 } else {
     login(); // Muestra la pantalla de inicio de sesión por defecto

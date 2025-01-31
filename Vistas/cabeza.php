@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
     <style>
         header{
             display: flex;
@@ -15,10 +16,6 @@
                     justify-content: center;
                     align-items: center;
                     margin: auto;
-                    button{
-                        background-color: gray;
-                        color: whitesmoke;
-                    }
                 }
         }
         img{
@@ -36,10 +33,13 @@
     ?>
                     <div>
                         <form action="./index.php?action=listaContactos" method="post">
-                            <button type="submit">Lista De Contactos</button>
+                            <button type="submit" class="btn btn-outline-light">Lista De Contactos</button>
                         </form>
                         <form action="./index.php?action=listaUsuariosAdmin" method="post">
-                            <button type="submit">Lista De Usuarios</button>
+                            <button type="submit" class="btn btn-outline-light">Lista De Usuarios</button>
+                        </form>
+                        <form action="./index.php?action=login" method="post">
+                            <button type="submit" class="btn btn-outline-light">Cerrar Sesion</button>
                         </form>
                     </div>
     <?php
@@ -47,13 +47,16 @@
     ?>
                     <div>
                         <form action="./index.php?action=listaAmigos" method="post">
-                            <button type="submit">Lista De Amigos</button>
+                            <button type="submit" class="btn btn-outline-light">Lista De Amigos</button>
                         </form>
                         <form action="./index.php?action=listaJuegos" method="post">
-                            <button type="submit">Lista De Juegos</button>
+                            <button type="submit" class="btn btn-outline-light">Lista De Juegos</button>
                         </form>
                         <form action="./index.php?action=listaPrestamos" method="post">
-                            <button type="submit">Lista De Prestamos</button>
+                            <button type="submit" class="btn btn-outline-light">Lista De Prestamos</button>
+                        </form>
+                        <form action="./index.php?action=login" method="post">
+                            <button type="submit" class="btn btn-outline-light">Cerrar Sesion</button>
                         </form>
                     </div>
     <?php        

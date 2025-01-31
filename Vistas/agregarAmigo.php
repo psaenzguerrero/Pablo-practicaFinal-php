@@ -27,7 +27,7 @@
                         <input type="text" name="apellidos" value = "" required>
                         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                         <input type="date" name="fecha_nacimiento" value = "" required>
-                        <button type="submit">Guardar</button>
+                        <button type="submit" class="btn btn-outline-light">Guardar</button>
                     </form>
             <?php
                 }else{
@@ -39,7 +39,7 @@
                     <input type="text" name="apellidos" value = "" required>
                     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                     <input type="date" name="fecha_nacimiento" value = "" required>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" class="btn btn-outline-light">Guardar</button>
                 </form>
             <?php
                 }
@@ -66,7 +66,7 @@
                 <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $amigox["fecha_nacimiento"] ?>" required>
                 <br>
-                <button type="submit">Guardar Cambios</button>
+                <button type="submit" class="btn btn-outline-light">Guardar Cambios</button>
             </form>
         <?php endif; ?>
     <?php

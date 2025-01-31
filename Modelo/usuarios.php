@@ -75,5 +75,22 @@
             $consulta->execute();
             $consulta->close();
         }
+        public function buscarUsuarios($busqueda) {
+            $sentencia = "SELECT id_usuario, nombre_usuario, contrasena 
+                    FROM usuarios 
+                    WHERE nombre_usuario LIKE ? OR contrasena LIKE ?";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $likeBusqueda = "%" . $busqueda . "%";
+            $consulta->bind_param("ss", $likeBusqueda, $likeBusqueda);
+            $consulta->execute();
+            $consulta->bind_result($id_usuario, $nombre_usuario, $contrasena);
+        
+            $usuarios = array();
+            while ($consulta->fetch()) {
+                array_push($usuarios, [$id_usuario, $nombre_usuario, $contrasena]);
+            }
+            $consulta->close();
+            return $usuarios;
+        }
     }
 ?>

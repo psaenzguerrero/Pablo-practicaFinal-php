@@ -20,7 +20,7 @@
                 <label for="foto">Archivo de foto:</label>
                 <input type="text" name="foto" required>
                 <br>
-                <button type="submit">Guardar</button>
+                <button type="submit" class="btn btn-outline-light">Guardar</button>
             </form>
     <?php
         }else{
@@ -41,7 +41,7 @@
                     <label for="foto">Archivo de foto:</label>
                     <input type="text" name="foto" value="<?= $juego["foto"] ?>" required>
                     <br>
-                    <button type="submit">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-outline-light">Guardar Cambios</button>
                 </form>
             <?php endif; ?>
         

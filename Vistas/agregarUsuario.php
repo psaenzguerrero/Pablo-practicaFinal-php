@@ -9,7 +9,7 @@
                     <input type="text" name="nombre_usuario" value ="<?php  ?>" required>
                     <label for="contrasena">Contraseña:</label>
                     <input type="text" name="contrasena" value = "" required>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" class="btn btn-outline-light">Guardar</button>
                 </form>
             <?php
             }else{
@@ -20,7 +20,7 @@
                     <input type="text" id="nombre_usuario"  name="nombre_usuario" value ="<?= $usuariox["nombre_usuario"]  ?>" required>
                     <label for="contrasena">Contraseña:</label>
                     <input type="text" id="contrasena" name="contrasena" value = "<?= $usuariox["contrasena"]  ?>" required>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" class="btn btn-outline-light">Guardar</button>
                 </form>
             <?php
             }
