@@ -8,20 +8,17 @@
     <style>
         header{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             margin: auto;
             background-color: black;
-
-            
+        
                 div{
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin: auto;
                 }
-            
-                
+               
         }
         body{
             background-image: url("../img/fondo.webp");

@@ -149,13 +149,22 @@ function buscarUsuarios() {
         echo "Error: Parámetros de búsqueda inválidos.";
     }
 }
+function buscadorUsuarios(){
+    session_start();
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    require_once("../vistas/cabeza.php");
+    require_once("../vistas/buscadorUsuarios.php");
+    require_once("../vistas/pie.html");
+}
 // Función para manejar la lista de amigos de usuario normal
 function listaAmigos() {
     session_start();
-    $prueba='a';
     $amigo = new Amigo();
     $id_usuario = $_SESSION["id_usuario"];
-    if (isset($_SESSION["id_usuario"])!=1) {
+    if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }else{
@@ -279,6 +288,7 @@ function modificarAmigoAdmin() {
     }
 }
 function guardarCambios() {
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"], $_POST["nombre"], $_POST["apellidos"], $_POST["fecha_nacimiento"])) {
         $id_amigo = $_POST["id_amigo"];
         $nombre = $_POST["nombre"];
@@ -287,12 +297,26 @@ function guardarCambios() {
         // Actualizar los datos del amigo en el modelo
         $amigo = new Amigo();
         $amigox = $amigo->actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
-        // Redirigir a la lista de amigos
-        header("Location: index.php?action=listaAmigos");
+        // Redirigir a la lista de amigos o la de contactos segun el tipo de usuario que este en uso
+        if (strcmp($_SESSION["tipo_usuario"],"admin")==0) {
+            header("Location: index.php?action=listaContactos");
+        }else{
+            header("Location: index.php?action=listaAmigos");
+        } 
         exit;
     } else {
         echo "Error: Datos inválidos o método no permitido.";
     }
+}
+function buscadorAmigos(){
+    session_start();
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    require_once("../vistas/cabeza.php");
+    require_once("../vistas/buscadorAmigos.php");
+    require_once("../vistas/pie.html");
 }
 // Función para manejar los juegos
 function listaJuegos() {
@@ -305,10 +329,9 @@ function listaJuegos() {
     }
     $usu = new Usuario();
     $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
-    $ruta = "../img/". $nom;
     $juegos = $juego->obtenerJuegos($id_usuario);
     require_once("../vistas/cabeza.php");
-    require_once("../vistas/buscarJuegos.php");
+    require_once("../vistas/listaJuegos.php");
     require_once("../vistas/pie.html");
 }
 function agregarJuego(){
@@ -426,6 +449,16 @@ function eliminarJuego() {
         require_once("../vistas/pie.html");
     }
 }
+function buscadorJuegos(){
+    session_start();
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    require_once("../vistas/cabeza.php");
+    require_once("../vistas/buscarJuego.php");
+    require_once("../vistas/pie.html");
+}
 function buscarJuegos() {
     session_start();
     $juego = new Juego();
@@ -440,7 +473,7 @@ function buscarJuegos() {
         $juegoModel = new Juego();
         $juegos = $juegoModel->buscarJuegos($busqueda, $id_usuario);
         require_once("../vistas/cabeza.php");
-        require_once("../vistas/buscarJuegos.php");
+        require_once("../vistas/listaJuegos.php");
         require_once("../vistas/pie.html");
     } else {
         echo "Error: Parámetros de búsqueda inválidos.";
@@ -570,6 +603,22 @@ function buscarPrestamos() {
     } else {
         echo "Error: Parámetros de búsqueda inválidos.";
     }
+}
+
+function buscadorPrestamos(){
+        session_start();
+        if (!isset($_SESSION["id_usuario"])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+        $id_usuario = $_SESSION["id_usuario"];
+        $usu = new Usuario();
+        $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
+        $ruta = "../img/". $nom;
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/buscadorPrestamos.php");
+        require_once("../vistas/pie.html");
+    
 }
 
 if (isset($_REQUEST["action"])) {

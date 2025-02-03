@@ -2,13 +2,6 @@
     if (!strcmp($_SESSION["tipo_usuario"],"admin")==0){
 ?>
     <body>
-        <h1>Buscar Amigos</h1>
-        <form method="POST" action="index.php?action=buscarAmigos">
-            <input type="hidden" name="id_amigo" value="buscarAmigos">
-            <label for="busqueda">Buscar por nombre o apellidos:</label>
-            <input type="text" name="busqueda"  placeholder="Escribe algo..." required>
-            <button type="submit" value="buscarAmigos" class="btn btn-outline-light">Buscar</button>
-        </form>
         <?php if (isset($amigos)): ?>
             <?php if (count($amigos) > 0): ?>
                 <h1>Mis Amigos</h1>
@@ -44,21 +37,18 @@
                 <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
             <?php endif; ?>
         <?php endif; ?>
+        <div>
+            <form action="index.php?action=buscadorAmigos" method="post">
+            <input type="submit" value="Buscar">
+            </form>
+        </div>
     </body>
 <?php        
     }else{
 ?>
     <body>
-        <h1>Buscar Contactos</h1>
-        <form method="POST" action="index.php?action=buscarAmigos">
-            <input type="hidden" name="id_amigo" value="buscarAmigos">
-            <label for="busqueda">Buscar por nombre o apellidos:</label>
-            <input type="text" name="busqueda"  placeholder="Escribe algo..." required>
-            <button type="submit" value="buscarAmigos">Buscar</button>
-        </form>
 
         <?php if (isset($amigos)): ?>
-            <h2>Resultados de la Búsqueda</h2>
             <?php if (count($amigos) > 0): ?>
                 <h1>CONTACTOS DEL SERVIDOR</h1>
                 <table>
@@ -90,10 +80,14 @@
                     </tbody>
                 </table>
                 <a href="index.php?action=agregarAmigoAdmin">Agregar Contacto</a>
-            <?php else: ?>
-                <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
+            
             <?php endif; ?>
         <?php endif; ?>
+        <div>
+            <form action="index.php?action=buscadorAmigos" method="post">
+            <input type="submit" value="Buscar">
+            </form>
+        </div>
     </body>
 <?php
     };
