@@ -10,6 +10,14 @@ function login() {
         $nombre_usuario = $_POST["nombre_usuario"];
         $contrasena = $_POST["contrasena"];
         $usuario = new Usuario();
+        $recuerdame = isset($_POST["recuerdame"]);
+
+        // Si el usuario marcó "Recuérdame", guardar en una cookie por 30 días
+        if ($recuerdame) {
+            setcookie("nombre_usuario", $nombre_usuario, time() + (30 * 24 * 60 * 60), "/"); // Expira en 30 días
+        } else {
+            setcookie("nombre_usuario", "", time() - 3600, "/"); // Borrar cookie si no se marca
+        }
         if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
             $_SESSION["id_usuario"] = $usuario->login($nombre_usuario, $contrasena);

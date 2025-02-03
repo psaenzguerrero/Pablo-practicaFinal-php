@@ -6,6 +6,10 @@
         <input type="text" name="nombre_usuario" required>
         <label for="contrasena">Contraseña:</label>
         <input type="password" name="contrasena" required>
+        
+        <label for="devuelto">Recuerdame:</label>
+        <input type="checkbox" name="recuerdame" value="1">
+        <br>
         <button type="submit" class="btn btn-outline-light">Iniciar Sesión</button>
     </form>
 </body>
