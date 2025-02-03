@@ -1,4 +1,4 @@
-<body>
+<main>
     
     <h1>Usuarios del Servidor</h1>
     <table border="1">
@@ -32,4 +32,4 @@
             <input type="submit" value="Buscar">
             </form>
         </div>
-</body>
+</main>

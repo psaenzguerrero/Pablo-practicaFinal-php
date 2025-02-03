@@ -1,4 +1,4 @@
-<body>
+<main>
         <?php if (isset($prestamos)): ?>
             <?php
                 $usu = new Usuario();
@@ -51,4 +51,4 @@
                 <input type="submit" value="Buscar">
             </form>
         </div>
-</body>
+</main>

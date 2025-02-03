@@ -1,7 +1,7 @@
 <?php
     if (!strcmp($_SESSION["tipo_usuario"],"admin")==0){
 ?>
-    <body>
+    <main>
         <?php if (isset($amigos)): ?>
             <?php if (count($amigos) > 0): ?>
                 <h1>Mis Amigos</h1>
@@ -42,11 +42,11 @@
             <input type="submit" value="Buscar">
             </form>
         </div>
-    </body>
+    </main>
 <?php        
     }else{
 ?>
-    <body>
+    <main>
 
         <?php if (isset($amigos)): ?>
             <?php if (count($amigos) > 0): ?>
@@ -88,7 +88,7 @@
             <input type="submit" value="Buscar">
             </form>
         </div>
-    </body>
+    </main>
 <?php
     };
 ?>

@@ -1,4 +1,4 @@
-<body>
+<main>
     <section>
     <?php if (isset($juegos)): ?>
         <?php if (count($juegos) > 0): ?>
@@ -51,5 +51,5 @@
     </div>
     </section>
     
-</body>
+</main>
 

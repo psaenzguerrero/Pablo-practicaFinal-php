@@ -1,4 +1,4 @@
-<body>
+<main>
     <h1>Buscar Prestamos</h1>
         <form method="POST" action="index.php?action=buscarPrestamos">
             <input type="hidden" name="id_prestamo" value="buscarPrestamos">
@@ -6,4 +6,4 @@
             <input type="text" name="busqueda"  placeholder="Escribe algo..." required>
             <button type="submit" value="buscarPrestamos" class="btn btn-outline-light">Buscar</button>
         </form>
-</body>
+</main>

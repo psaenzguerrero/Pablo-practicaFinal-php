@@ -1,4 +1,4 @@
-<body>
+<main>
     <?php
     if (isset($_REQUEST["action"])) {
         $action = strtolower($_REQUEST["action"]);
@@ -79,4 +79,4 @@
         }
     }
     ?>
-</body>
+</main>
