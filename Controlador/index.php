@@ -4,6 +4,13 @@ require_once("../modelo/usuarios.php");
 require_once("../modelo/amigos.php");
 require_once("../modelo/juegos.php");
 require_once("../modelo/prestamos.php");
+// Función para manejar el cierre de sesión
+function cerrarSesion(){
+    session_start();
+    session_unset();
+    session_destroy();
+    header("Location: index.php?action=login");
+}
 // Función para manejar el inicio de sesión
 function login() {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {  
@@ -16,7 +23,7 @@ function login() {
         if ($recuerdame) {
             setcookie("nombre_usuario", $nombre_usuario, time() + (30 * 24 * 60 * 60), "/"); // Expira en 30 días
         } else {
-            setcookie("nombre_usuario", "", time() - 3600, "/"); // Borrar cookie si no se marca
+            setcookie("nombre_usuario", "", time() - 3600, "/"); 
         }
         if ($usuario->login($nombre_usuario, $contrasena)) {
             session_start();
@@ -281,7 +288,7 @@ function guardarCambios() {
         $amigo = new Amigo();
         $amigox = $amigo->actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
         // Redirigir a la lista de amigos
-        header("Location: index.php");
+        header("Location: index.php?action=listaAmigos");
         exit;
     } else {
         echo "Error: Datos inválidos o método no permitido.";
@@ -296,6 +303,9 @@ function listaJuegos() {
         header("Location: index.php?action=login");
         exit;
     }
+    $usu = new Usuario();
+    $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
+    $ruta = "../img/". $nom;
     $juegos = $juego->obtenerJuegos($id_usuario);
     require_once("../vistas/cabeza.php");
     require_once("../vistas/buscarJuegos.php");
@@ -313,13 +323,32 @@ function agregarJuego(){
         $titulo = $_POST["titulo"];
         $plataforma = $_POST["plataforma"];
         $anio_lanzamiento = $_POST["anio_lanzamiento"];
-        $foto = $_POST["foto"];
+        $foto = $_FILES["foto"];
         $juego = new Juego();
-        $resultado = $juego->insertar($_SESSION["id_usuario"],$titulo, $plataforma, $anio_lanzamiento, $foto);
+
+        $usu = new Usuario();
+        $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
+        $ruta = "../img/". $nom;
+
+        if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == UPLOAD_ERR_OK) {
+            $nombre_archivo = basename($_FILES["foto"]["name"]);
+            $ruta_archivo = $ruta . "/" . $nombre_archivo;
+    
+            // Mover el archivo a la carpeta del usuario
+            if (move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta_archivo)) {
+                echo "Archivo subido con éxito a '$ruta_archivo'.";
+            } else {
+                echo "Error al mover el archivo.";
+            }
+        } else {
+            echo "Error al subir el archivo.";
+        }
+
+        $resultado = $juego->insertar($_SESSION["id_usuario"],$titulo, $plataforma, $anio_lanzamiento, $nombre_archivo);
         if ($resultado) {
             header("Location: index.php?action=listaJuegos");
         } else {
-            $error = "Error al agregar el amigo.";
+            $error = "Error al agregar el Juego.";
             require_once("../vistas/cabeza.php");
             require_once("../vistas/agregarJuego.php");
             require_once("../vistas/pie.html");
@@ -347,14 +376,32 @@ function modificarJuego() {
     }
 }
 function guardarCambiosJuego() {  
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"], $_POST["titulo"], $_POST["plataforma"], $_POST["anio_lanzamiento"], $_POST["foto"])) {
+    session_start();
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_juego"], $_POST["titulo"], $_POST["plataforma"], $_POST["anio_lanzamiento"])) {
         $id_juego = $_POST["id_juego"];
         $titulo = $_POST["titulo"];
         $plataforma = $_POST["plataforma"];
         $anio_lanzamiento = $_POST["anio_lanzamiento"];
-        $foto = $_POST["foto"];
+        $foto = $_FILES["foto"];
+        $id_usuario = $_SESSION["id_usuario"];
+        $usu = new Usuario();
+        $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
+        $ruta = "../img/". $nom;
+        //Comprobar el espacio de la foto
+        if (!empty($_FILES["foto"])) {
+            $nombre_archivo = basename($_FILES["foto"]["name"]);
+            $ruta_archivo = $ruta . "/" . $nombre_archivo;
+            // Mover el archivo a la carpeta del usuario
+            if (move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta_archivo)) {
+                echo "Archivo subido con éxito a '$ruta_archivo'.";
+            } else {
+                echo "Error al mover el archivo.";
+            }
+        } else {
+            echo "Error al subir el archivo.";
+        }
         $juegoModel = new Juego();
-        $juegoModel->actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto);
+        $juegoModel->actualizar($id_juego, $titulo, $plataforma, $anio_lanzamiento, $nombre_archivo);
         header("Location: index.php?action=listaJuegos");
         exit;
     } else {

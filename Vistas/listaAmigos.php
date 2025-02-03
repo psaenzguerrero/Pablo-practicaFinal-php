@@ -9,9 +9,7 @@
             <input type="text" name="busqueda"  placeholder="Escribe algo..." required>
             <button type="submit" value="buscarAmigos" class="btn btn-outline-light">Buscar</button>
         </form>
-
         <?php if (isset($amigos)): ?>
-            <h2>Resultados de la Búsqueda</h2>
             <?php if (count($amigos) > 0): ?>
                 <h1>Mis Amigos</h1>
                 <table border="1">

@@ -7,7 +7,6 @@
             <button type="submit" value="buscarPrestamos" class="btn btn-outline-light">Buscar</button>
         </form>
         <?php if (isset($prestamos)): ?>
-            <h2>Resultados de la Búsqueda</h2>
                 <?php if (count($prestamos) > 0): ?>
                     <h1>Mis Prestamos</h1>
                     <table border="1">

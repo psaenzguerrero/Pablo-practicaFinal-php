@@ -8,15 +8,23 @@
     <style>
         header{
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             margin: auto;
+            background-color: black;
+
+            
                 div{
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     margin: auto;
                 }
+            
+                
+        }
+        body{
+            background-image: url("../img/fondo.webp");
         }
         img{
             width: 100px;
@@ -25,6 +33,9 @@
     </style>
 </head>
 <header>
+    <div>
+        <img src="../img/steam.jpg" alt="">
+    </div>
     <?php
         if (isset($_REQUEST["action"])) {
             $action = strtolower($_REQUEST["action"]);
@@ -38,7 +49,7 @@
                         <form action="./index.php?action=listaUsuariosAdmin" method="post">
                             <button type="submit" class="btn btn-outline-light">Lista De Usuarios</button>
                         </form>
-                        <form action="./index.php?action=login" method="post">
+                        <form action="index.php?action=cerrarSesion" method="get">
                             <button type="submit" class="btn btn-outline-light">Cerrar Sesion</button>
                         </form>
                     </div>
@@ -55,7 +66,7 @@
                         <form action="./index.php?action=listaPrestamos" method="post">
                             <button type="submit" class="btn btn-outline-light">Lista De Prestamos</button>
                         </form>
-                        <form action="./index.php?action=login" method="post">
+                        <form action="./index.php?action=cerrarSesion" method="get">
                             <button type="submit" class="btn btn-outline-light">Cerrar Sesion</button>
                         </form>
                     </div>

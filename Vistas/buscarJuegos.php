@@ -8,7 +8,6 @@
     </form>
 
     <?php if (isset($juegos)): ?>
-        <h2>Resultados de la Búsqueda</h2>
         <?php if (count($juegos) > 0): ?>
             <table border="1">
                 <thead>
@@ -24,7 +23,7 @@
                     <?php foreach ($juegos as $juego): ?>
                         <tr>
                         <td class="text-center border-3">
-                            <img src="../img/<?= $juego[3] ?>" alt="">
+                            <img src="../img/<?= $nom.'/'.$juego[3] ?>" alt="">
                             
                         </td>
                         <td class="text-center border-3"><?= $juego[0] ?></td>
