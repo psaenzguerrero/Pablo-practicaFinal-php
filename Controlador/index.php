@@ -213,15 +213,26 @@ function agregarAmigo() {
         $apellidos = $_POST["apellidos"];
         $fecha_nacimiento = $_POST["fecha_nacimiento"];
         $amigo = new Amigo();
-        $resultado = $amigo->insertar($_SESSION["id_usuario"], $nombre, $apellidos, $fecha_nacimiento);
-        if ($resultado) {
-            header("Location: index.php?action=listaAmigos");
-        } else {
-            $error = "Error al agregar el amigo.";
+        $fecha = strtotime($fecha_nacimiento);
+        $fecha_actual = time();
+        if ($fecha>$fecha_actual) {
+            $error = "Error al agregar la fecha.";
             require_once("../vistas/cabeza.php");
             require_once("../vistas/agregarAmigo.php");
             require_once("../vistas/pie.html");
+        }else{
+            $resultado = $amigo->insertar($_SESSION["id_usuario"], $nombre, $apellidos, $fecha_nacimiento);
+            if ($resultado) {
+                listaAmigos();
+            } else {
+                $error = "Error al agregar el amigo.";
+                require_once("../vistas/cabeza.php");
+                require_once("../vistas/agregarAmigo.php");
+                require_once("../vistas/pie.html");
+            }
+
         }
+        
     } else {
         require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarAmigo.php");
@@ -273,6 +284,8 @@ function modificarAmigo() {
 }
 function modificarAmigoAdmin() {
     session_start();
+    $usuario = new Usuario();
+    $usuarios = $usuario->obtenerUsuarios();
     if ($_SERVER["REQUEST_METHOD"] === "POST"&& isset($_POST["id_amigo"])&& isset($_POST["nombre_usuario"])) {
         $id_amigo = $_POST["id_amigo"];
         $nombre_usuario = $_POST["nombre_usuario"];
@@ -289,24 +302,38 @@ function modificarAmigoAdmin() {
 }
 function guardarCambios() {
     session_start();
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"], $_POST["nombre"], $_POST["apellidos"], $_POST["fecha_nacimiento"])) {
-        $id_amigo = $_POST["id_amigo"];
-        $nombre = $_POST["nombre"];
-        $apellidos = $_POST["apellidos"];
-        $fechaNacimiento = $_POST["fecha_nacimiento"];
-        // Actualizar los datos del amigo en el modelo
-        $amigo = new Amigo();
-        $amigox = $amigo->actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
-        // Redirigir a la lista de amigos o la de contactos segun el tipo de usuario que este en uso
-        if (strcmp($_SESSION["tipo_usuario"],"admin")==0) {
-            header("Location: index.php?action=listaContactos");
-        }else{
-            header("Location: index.php?action=listaAmigos");
-        } 
-        exit;
-    } else {
-        echo "Error: Datos inválidos o método no permitido.";
-    }
+    if (strcmp($_SESSION["tipo_usuario"],"admin")==0) {
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["nombre_usuario"], $_POST["id_amigo"], $_POST["nombre"], $_POST["apellidos"], $_POST["fecha_nacimiento"])) {
+            $id_amigo = $_POST["id_amigo"];
+            $nombre = $_POST["nombre"];
+            $apellidos = $_POST["apellidos"];
+            $fechaNacimiento = $_POST["fecha_nacimiento"];
+            // Actualizar los datos del amigo en el modelo
+            $amigo = new Amigo();
+            $amigox = $amigo->actualizarAdmin($id_amigo, $_POST["nombre_usuario"], $nombre, $apellidos, $fechaNacimiento);
+            // Redirigir a la lista de amigos o la de contactos segun el tipo de usuario que este en uso
+            header("Location: index.php?action=listaContactos"); 
+            exit;
+        } else {
+            echo "Error: Datos inválidos o método no permitido.";
+        }
+        
+    }else{
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_amigo"], $_POST["nombre"], $_POST["apellidos"], $_POST["fecha_nacimiento"])) {
+            $id_amigo = $_POST["id_amigo"];
+            $nombre = $_POST["nombre"];
+            $apellidos = $_POST["apellidos"];
+            $fechaNacimiento = $_POST["fecha_nacimiento"];
+            // Actualizar los datos del amigo en el modelo
+            $amigo = new Amigo();
+            $amigox = $amigo->actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento);
+            // Redirigir a la lista de amigos o la de contactos segun el tipo de usuario que este en uso
+            header("Location: index.php?action=listaAmigos");  
+            exit;
+        } else {
+            echo "Error: Datos inválidos o método no permitido.";
+        }
+    }    
 }
 function buscadorAmigos(){
     session_start();
@@ -572,6 +599,22 @@ function eliminarPrestamo() {
         $id_prestamo = $_POST["id_prestamo"];
         $prestamoModel = new Prestamo();
         $prestamoModel->eliminarPrestamo($id_prestamo);
+        header("Location: index.php?action=listaPrestamos");
+        exit;
+    } else {
+        echo "Error: Datos inválidos.";
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/agregarPrestamo.php");
+        require_once("../vistas/pie.html");
+    }
+}
+function devolver(){
+    session_start(); 
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $id_prestamo = $_POST["id_prestamo"];
+        $devuelto = 1;
+        $prestamo = new Prestamo();
+        $prestamos = $prestamo->devolver($id_prestamo, $devuelto);
         header("Location: index.php?action=listaPrestamos");
         exit;
     } else {

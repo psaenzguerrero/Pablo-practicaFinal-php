@@ -2,7 +2,7 @@
     if (!strcmp($_SESSION['tipo_usuario'],"admin")==0){
 ?>
 <main>
-<h1>Bienvenido al Panel Principal</h1>
+<h1>Bienvenido a tu Pagina de Principal</h1>
     <nav>
         <ul>
             <li><a href="index.php?action=listaAmigos">Lista de Amigos</a></li>

@@ -14,7 +14,7 @@
             <?php
             }else{
             ?>
-                <form method="POST" action="index.php?action=guardarCambiosUsuarios"> 
+                <form method="POST" action="index.php?action=guardarCambiosUsuarios">   
                     <input type="hidden" name="id_usuario" value="<?= $_POST["id_usuario"] ?>">   
                     <label for="nombre_usuario">Nombre:</label>
                     <input type="text" id="nombre_usuario"  name="nombre_usuario" value ="<?= $usuariox["nombre_usuario"]  ?>" required>

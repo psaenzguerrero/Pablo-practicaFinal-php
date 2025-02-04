@@ -34,7 +34,7 @@
                 </table>
                 <a href="index.php?action=agregarAmigo">Agregar Amigo</a>
             <?php else: ?>
-                <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
+                <p>No se encontraron resultados para "<?= $_POST["busqueda"] ?>".</p>
             <?php endif; ?>
         <?php endif; ?>
         <div>
@@ -80,7 +80,8 @@
                     </tbody>
                 </table>
                 <a href="index.php?action=agregarAmigoAdmin">Agregar Contacto</a>
-            
+            <?php else: ?>
+                <p>No se encontraron resultados para "<?= $_POST["busqueda"] ?>".</p>
             <?php endif; ?>
         <?php endif; ?>
         <div>

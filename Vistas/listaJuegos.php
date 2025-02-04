@@ -36,7 +36,7 @@
                 </tbody>
             </table>    
         <?php else: ?>
-            <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
+            <p>No se encontraron resultados para "<?= $_POST["busqueda"] ?>".</p>
         <?php endif; ?>
     <?php endif; ?>
     <div>

@@ -58,6 +58,13 @@
             $consulta->execute();
             $consulta->close();
         }
+        public function actualizarAdmin($id_amigo, $id_usuario, $nombre, $apellidos, $fechaNacimiento) {
+            $sentencia = "UPDATE amigos SET id_usuario = ?, nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE id_amigo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param('isssi',$id_usuario, $nombre, $apellidos, $fechaNacimiento, $id_amigo );
+            $consulta->execute();
+            $consulta->close();
+        }
         public function insertar($id_usuario, $nombre, $apellidos, $fecha_nacimiento) {
             $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?)";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);

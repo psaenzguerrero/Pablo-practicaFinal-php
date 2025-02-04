@@ -44,6 +44,14 @@
             $consulta->close();
             return $resultado;
         }
+        public function devolver($id_prestamo, $devuelto){
+            $sentencia = "UPDATE prestamos SET devuelto = ? WHERE id_prestamo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param("ii", $devuelto, $id_prestamo);
+            $resultado=$consulta->execute();
+            $consulta->close();
+            return $resultado;
+        }
     
         public function eliminarPrestamo($id_prestamo) {
             $sentencia = "DELETE FROM prestamos WHERE id_prestamo = ?";
@@ -64,7 +72,7 @@
         
             $prestamos = array();
             while ($consulta->fetch()) {
-                array_push($prestamos, [$amigo, $titulo, $anio_lanzamiento, $foto, $devuelto, $id_prestamo]);
+                array_push($prestamos, [$amigo, $titulo, $foto, $anio_lanzamiento, $devuelto, $id_prestamo]);
             }
             $consulta->close();
             return $prestamos;

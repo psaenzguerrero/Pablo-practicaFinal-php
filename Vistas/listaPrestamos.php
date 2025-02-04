@@ -1,10 +1,10 @@
 <main>
         <?php if (isset($prestamos)): ?>
-            <?php
-                $usu = new Usuario();
-                $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
-            ?>
                 <?php if (count($prestamos) > 0): ?>
+                    <?php
+                        $usu = new Usuario();
+                        $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
+                    ?>
                     <h1>Mis Prestamos</h1>
                     <table border="1">
                         <thead>
@@ -26,10 +26,25 @@
                                         <img src="../img/<?=$nom.'/'. $prestamo[2] ?>" alt="">                                        
                                     </td>
                                     <td class="text-center border-3"><?= $prestamo[3] ?></td>  
-                                    <td class="text-center border-3"><?= $prestamo[4] ?></td>
+                                    <td class="text-center border-3">
+                                        <?php 
+                                            if($prestamo[4]==0){
+                                        ?>        
+                                                
+                                                <form action='index.php?action=devolver' method='post'>
+                                                    <input type='hidden' name='devuelto' value='<?= $prestamo[4] ?>'>
+                                                    <input type='hidden' name='id_prestamo' value='<?= $prestamo[5] ?>'>
+                                                    <input type='submit' value='Devolver'>
+                                                </form>
+                                        <?php
+                                            }else{
+                                                echo "<button type='button' class='btn btn-dark disabled'>Devuelto</button>";
+                                            } 
+                                        ?>
+                                    </td>
                                     <td class="text-center border-3">
                                         <form action="index.php?action=modificarPrestamo" method="post">
-                                            <input type="hidden" name="fecha_prestamo" value="<?= $prestamo[3] ?>">
+                                            <input type="hidden" name="fecha_prestamo"  value="<?= $prestamo[3] ?>">
                                             <input type="hidden" name="devuelto" value="<?= $prestamo[4] ?>">
                                             <input type="hidden" name="id_prestamo" value="<?= $prestamo[5] ?>">
                                             <input type="hidden" name="id_amigo" value="<?= $prestamo[6] ?>">
@@ -43,7 +58,7 @@
                     </table>
             <a href="index.php?action=agregarPrestamo">Agregar Prestamo</a>
             <?php else: ?>
-                    <p>No se encontraron resultados para "<?= $_GET["busqueda"] ?>".</p>
+                    <p>No se encontraron resultados para "<?= $_POST["busqueda"] ?>".</p>
                 <?php endif; ?>
             <?php endif; ?>
             <div>

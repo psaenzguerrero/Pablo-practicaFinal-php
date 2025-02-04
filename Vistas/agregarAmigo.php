@@ -52,11 +52,16 @@
                 <input type="hidden" name="id_amigo" value="<?= $_POST["id_amigo"] ?>">
 
                 <?php if(strcmp($action, "modificaramigoadmin")==0): ?>
-                    <input type="hidden" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>">
                     <label for="nombre_usuario">Nombre Propietario:</label>
-                    <input type="text" id="nombre_usuario" name="nombre_usuario" value="<?= $_POST["nombre_usuario"] ?>" required><br>
-                <?php endif; ?>    
+                        <select name="nombre_usuario">
+                            <?php foreach ($usuarios as $usuario): ?>
+                                
+                                <option value=<?= $usuario[0] ?>><?= $usuario[1] ?></option>
 
+                            <?php endforeach; ?>
+                        </select>
+                <?php endif; ?>    
+                <br>
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?= $amigox["nombre"] ?>" required>
                 <br>
