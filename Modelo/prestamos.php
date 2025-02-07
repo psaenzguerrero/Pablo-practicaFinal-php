@@ -23,6 +23,8 @@
             $prestamos = array();
             $consulta->execute();
             while($consulta->fetch()){
+                $fech = strtotime($res4);
+                $res4 = date('d-m-Y', $fech);
                 array_push($prestamos, [$res, $res2, $res3, $res4, $res5, $res6, $res7, $res8]);
             };
             $consulta->close();
@@ -60,7 +62,7 @@
             return $consulta->execute();
         }
         public function buscarPrestamos($busqueda, $id_usuario) {
-            $sentencia = "SELECT id_prestamo, amigos.nombre, juegos.titulo, anio_lanzamiento, foto, devuelto 
+            $sentencia = "SELECT id_prestamo, amigos.nombre, juegos.titulo, fecha_prestamo, foto, devuelto 
                           FROM prestamos, amigos, juegos
                           WHERE prestamos.id_amigo=amigos.id_amigo AND prestamos.id_juego=juegos.id_juego AND prestamos.id_usuario = ? AND (nombre LIKE ? OR titulo LIKE ?)";
             
@@ -68,11 +70,13 @@
             $likeBusqueda = "%" . $busqueda . "%";
             $consulta->bind_param("iss", $id_usuario, $likeBusqueda, $likeBusqueda);
             $consulta->execute();
-            $consulta->bind_result($id_prestamo, $amigo, $titulo, $anio_lanzamiento, $foto, $devuelto);
+            $consulta->bind_result($id_prestamo, $amigo, $titulo, $fecha_prestamo, $foto, $devuelto);
         
             $prestamos = array();
             while ($consulta->fetch()) {
-                array_push($prestamos, [$amigo, $titulo, $foto, $anio_lanzamiento, $devuelto, $id_prestamo]);
+                $fech = strtotime($fecha_prestamo);
+                $fecha_prestamo = date('d-m-Y', $fech);
+                array_push($prestamos, [$amigo, $titulo, $foto, $fecha_prestamo, $devuelto, $id_prestamo]);
             }
             $consulta->close();
             return $prestamos;

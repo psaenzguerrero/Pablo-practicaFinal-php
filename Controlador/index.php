@@ -515,6 +515,7 @@ function listaPrestamos(){
         exit;
     }
     $prestamos = $prestamo->obtenerPrestamos($id_usuario);
+
     require_once("../vistas/cabeza.php");
     require_once("../vistas/listaPrestamos.php");
     require_once("../vistas/pie.html");
@@ -636,10 +637,7 @@ function buscarPrestamos() {
         $busqueda = $_POST["busqueda"];
         $id_usuario = $_SESSION["id_usuario"]; 
         $prestamo = new Prestamo();
-
         $prestamos = $prestamo->buscarPrestamos($busqueda, $id_usuario);
-        
-
         require_once("../vistas/cabeza.php");
         require_once("../vistas/listaPrestamos.php");
         require_once("../vistas/pie.html");

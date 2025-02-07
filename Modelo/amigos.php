@@ -23,6 +23,8 @@
             $amigos = array();
             $consulta->execute();
             while($consulta->fetch()){
+                $fech = strtotime($res3);
+                $res3 = date('d-m-Y', $fech);
                 array_push($amigos, [$res, $res2, $res3, $res4, $res5]);
             };
             $consulta->close();
@@ -36,6 +38,8 @@
             $amigos = array();
             $consulta->execute();
             while($consulta->fetch()){
+                $fech = strtotime($res3);
+                $res3 = date('d-m-Y', $fech);
                 array_push($amigos, [$res, $res2, $res3, $res4]);
             };
             $consulta->close();

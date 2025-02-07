@@ -28,6 +28,22 @@
             width: 100px;
             height: 100px;
         }
+        tr{
+            padding: 10px;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #4c8bf54a;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #3733336e;
+            box-shadow: 1px 0px 4px 6px rgb(197 193 194 / 23%);
+        }
+        .usu{
+            margin: 20px;
+            width: 50px;
+            height: 50px;
+        }
         #login{
             display: flex;
             flex-flow: column;
@@ -93,7 +109,7 @@
                 }
             }
         }
-        #listaA{
+        #lista{
             display: flex;
             flex-flow: column;
             justify-content: center;

@@ -1,5 +1,6 @@
 
 <main>
+    <section id="">
     <?php
     if (isset($_REQUEST["action"])) {
         $action = strtolower($_REQUEST["action"]);
@@ -16,17 +17,27 @@
                         <label for="nombre_usuario">Nombre Propietario:</label>
                         <select name="nombre_usuario">
                             <?php foreach ($usuarios as $usuario): ?>
+                                <?php
+                                    if (!strcmp($usuario[3],"admin")==0) {
+                                ?>
+                                        <option value=<?= $usuario[0] ?>><?= $usuario[1] ?></option>
+                                <?php    
+                                    }
+                                ?>
                                 
-                                <option value=<?= $usuario[0] ?>><?= $usuario[1] ?></option>
 
                             <?php endforeach; ?>
-                        </select>    
+                        </select>
+                        <br>
                         <label for="nombre">Nombre:</label>
                         <input type="text" name="nombre" value ="<?php  ?>" required>
+                        <br>
                         <label for="apellidos">Apellidos:</label>
                         <input type="text" name="apellidos" value = "" required>
+                        <br>
                         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                         <input type="date" name="fecha_nacimiento" value = "" required>
+                        <br>
                         <button type="submit" class="btn btn-outline-light">Guardar</button>
                     </form>
             <?php
@@ -55,9 +66,13 @@
                     <label for="nombre_usuario">Nombre Propietario:</label>
                         <select name="nombre_usuario">
                             <?php foreach ($usuarios as $usuario): ?>
-                                
-                                <option value=<?= $usuario[0] ?>><?= $usuario[1] ?></option>
-
+                                <?php
+                                    if (!strcmp($usuario[3],"admin")==0) {
+                                ?>
+                                        <option value=<?= $usuario[0] ?>><?= $usuario[1] ?></option>
+                                <?php    
+                                    }
+                                ?>
                             <?php endforeach; ?>
                         </select>
                 <?php endif; ?>    
@@ -78,4 +93,5 @@
     }
 }
     ?> 
+    </section>   
 </main>

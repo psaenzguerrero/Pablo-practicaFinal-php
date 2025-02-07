@@ -23,13 +23,13 @@
             return $res;     
         }
         public function obtenerUsuarios(){
-            $sentencia ="SELECT id_usuario, nombre_usuario, contrasena FROM usuarios";
+            $sentencia ="SELECT id_usuario, nombre_usuario, contrasena, tipo FROM usuarios";
             $consulta=$this->conn->__get("conn")->prepare($sentencia);
-            $consulta->bind_result($res, $res2, $res3);
+            $consulta->bind_result($res, $res2, $res3, $res4);
             $usuarios = array();
             $consulta->execute();
             while($consulta->fetch()){
-                array_push($usuarios, [$res, $res2, $res3]);
+                array_push($usuarios, [$res, $res2, $res3, $res4]);
             };
             $consulta->close();
             return $usuarios;
