@@ -12,13 +12,11 @@
             align-items: center;
             margin: auto;
             background-color: black;
-        
                 div{
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                }
-               
+                }     
         }
         main{
             
@@ -36,14 +34,98 @@
             justify-content: center;
             align-items: center;
             height: 70vh;
-            font-size: 30px;
+            font-size: 20px;
             text-align:center;
+            h1{
+                font-size: 70px;
+                font-family: "Motiva Sans", Sans-serif;
+                margin-bottom: 20px;
+            }
             form{
 
-                width: 50%;
+                width: 20%;
                 display: flex;
                 justify-content: center;
                 flex-flow: column;
+                label{
+                    margin: 10px;
+                }
+            }
+        }
+        #pagina_usu{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            font-size: 20px;
+            text-align:center;
+            margin-top: 20px; 
+            img{
+                width: 900px;
+                height: 500px;
+                margin: 20px;
+                box-shadow: 1px 0px 4px 6px rgb(197 193 194 / 23%);
+            }
+            div{
+                margin: 20px;
+                width: 40%;
+            }
+            >div:nth-child(1){
+                display: flex;
+                flex-flow: column;
+                justify-content: center;
+                align-items: center;
+            }
+            ul{
+                li{
+                    list-style-type: none;
+                    margin: 40px;
+                    a{
+                        text-decoration: none;
+                        border: 3px solid rgb(0, 188, 140);
+                        border-radius:10px;
+                        padding: 15px;  
+                    }
+                    a:hover{
+                        border: 3px solid white;
+                        color: white;
+                    }
+                }
+            }
+        }
+        #listaA{
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            text-align:center;
+            div{
+                display: flex;
+                input{
+                    text-decoration: none;
+                    border: 3px solid rgb(0, 188, 140);
+                    border-radius:10px;
+                    padding: 15px;  
+                    background-color: transparent;
+                    color: rgb(0, 188, 140);
+                    margin: 40px;
+                }
+                input:hover{
+                    border: 3px solid white;
+                    color: white;
+                }
+                a{
+                    text-decoration: none;
+                    border: 3px solid rgb(0, 188, 140);
+                    border-radius:10px;
+                    padding: 15px; 
+                    margin: 40px; 
+                }
+                a:hover{
+                    border: 3px solid white;
+                    color: white;
+                }
             }
         }
     </style>
