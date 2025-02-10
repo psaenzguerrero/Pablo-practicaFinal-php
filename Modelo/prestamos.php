@@ -23,6 +23,17 @@
             $consulta->close();
             return $prestamos;
         }
+        //obtener un prestamo por id
+        public function obtenerPrestamo(int $id_prestamo){
+            $sentencia ="SELECT amigos.nombre, juegos.titulo, juegos.foto, fecha_prestamo, devuelto, id_prestamo, prestamos.id_amigo, prestamos.id_juego FROM amigos, juegos, prestamos WHERE prestamos.id_amigo=amigos.id_amigo AND prestamos.id_juego=juegos.id_juego AND prestamos.id_prestamo=?;";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param('i', $id_prestamo);
+            $consulta->execute();
+            $resultado = $consulta->get_result();
+            $prestamo = $resultado->fetch_assoc();
+            $consulta->close();
+            return $prestamo;
+        }
         //Insertar un nuevo prestamo
         public function insertarPrestamo($id_usuario, $id_amigo, $id_juego, $fecha_prestamo, $devuelto) {
             $sentencia = "INSERT INTO prestamos (id_usuario, id_amigo, id_juego, fecha_prestamo, devuelto) VALUES (?, ?, ?, ?, ?)";

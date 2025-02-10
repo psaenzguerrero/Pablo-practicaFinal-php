@@ -184,10 +184,13 @@
             }
         }
         #busca{
+            margin-top: 100px;
+            border: 2px solid white;
+            border-radius: 20px;
+            background-color: #8080805e;
             text-align: center;
-            background-color: rgba(73, 98, 167, 0.616);
             h1{
-                font-size: 90px;
+                font-size: 60px;
                 margin: 20px;
             }
             label{
@@ -211,10 +214,42 @@
                 border: 3px solid white;
                 color: white;
             }
-
         }
         #agre{
-            
+            margin-top: 100px;
+            border: 2px solid white;
+            border-radius: 20px;
+            background-color: #8080805e;
+            text-align: center;
+            h1{
+                font-size: 60px;
+                margin: 20px;
+            }
+            label{
+                margin: 20px;
+                font-size: 30px;
+            }
+            input{
+                margin: 20px;
+                padding: 10px;
+            }
+            button{
+                text-decoration: none;
+                border: 3px solid rgb(0, 188, 140);
+                border-radius:10px;
+                padding: 15px 25px;  
+                background-color: transparent;
+                color: rgb(0, 188, 140);
+                margin: 40px;
+            }
+            button:hover{
+                border: 3px solid white;
+                color: white;
+            }
+            select{
+                margin: 20px;
+                padding: 10px;
+            }
         }
     </style>
 </head>

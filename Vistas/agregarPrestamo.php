@@ -1,4 +1,5 @@
 <main>
+    <section id="agre">
     <?php
     if (isset($_REQUEST["action"])) {
         $action = strtolower($_REQUEST["action"]);
@@ -65,7 +66,7 @@
                 <br>
 
                 <label for="fecha_prestamo">Fecha de Préstamo:</label>
-                <input type="date" name="fecha_prestamo" value="<?= $_POST["fecha_prestamo"] ?>" required>
+                <input type="date" name="fecha_prestamo" value="<?= $prestamos["fecha_prestamo"] ?>" required>
                 <br>
 
                 <label for="devuelto">Devuelto:</label>
@@ -79,4 +80,5 @@
         }
     }
     ?>
+    </section>
 </main>

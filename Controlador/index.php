@@ -453,10 +453,8 @@ function guardarCambiosJuego() {
         $anio_lanzamiento = $_POST["anio_lanzamiento"];
         $foto = $_FILES["foto"];
         $id_usuario = $_SESSION["id_usuario"];
-        
         $usu = new Usuario();
         $nom = $usu->obtenerPorId($id_usuario)['nombre_usuario'];
-
         $ruta = "../img/". $nom;
         //Comprobar el espacio de la foto
         if (!empty($_FILES["foto"])) {
@@ -579,7 +577,7 @@ function modificarPrestamo() {
         $juegos = $juego->obtenerJuegos($id_usuario);
         $id_prestamo = $_POST["id_prestamo"];
         $prestamo = new Prestamo();
-        $prestamos = $prestamo->obtenerPrestamos($id_usuario);
+        $prestamos = $prestamo->obtenerPrestamo($id_prestamo);
         require_once("../vistas/cabeza.php");
         require_once("../vistas/agregarPrestamo.php");
         require_once("../vistas/pie.html");     
