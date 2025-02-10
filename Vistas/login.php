@@ -9,7 +9,7 @@
             <input type="password" name="contrasena" required>
             <br>
             <label for="devuelto">Recuerdame:</label>
-            <input type="checkbox" name="recuerdame" value="1">
+            <input type="checkbox" name="recuerdame" value="1" checked>
             <br>
             <button type="submit" class="btn btn-outline-light">Iniciar Sesión</button>
         </form>
