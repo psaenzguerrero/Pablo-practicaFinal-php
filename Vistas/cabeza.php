@@ -18,9 +18,6 @@
                     align-items: center;
                 }     
         }
-        main{
-            
-        }
         body{
             background-image: url("../img/fondo.webp");
         }
@@ -109,6 +106,48 @@
                 }
             }
         }
+        #pagina_usu2{
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            font-size: 20px;
+            text-align:center;
+            margin-top: 20px; 
+            img{
+                width: 900px;
+                height: 500px;
+                margin: 20px;
+                box-shadow: 1px 0px 4px 6px rgb(197 193 194 / 23%);
+            }
+            div{
+                margin: 20px;
+                width: 40%;
+            }
+            >div:nth-child(1){
+                display: flex;
+                flex-flow: column;
+                justify-content: center;
+                align-items: center;
+            }
+            ul{
+                li{
+                    list-style-type: none;
+                    margin: 40px;
+                    a{
+                        text-decoration: none;
+                        border: 3px solid rgb(0, 188, 140);
+                        border-radius:10px;
+                        padding: 15px;  
+                    }
+                    a:hover{
+                        border: 3px solid white;
+                        color: white;
+                    }
+                }
+            }
+        }
         #lista{
             display: flex;
             flex-flow: column;
@@ -143,6 +182,39 @@
                     color: white;
                 }
             }
+        }
+        #busca{
+            text-align: center;
+            background-color: rgba(73, 98, 167, 0.616);
+            h1{
+                font-size: 90px;
+                margin: 20px;
+            }
+            label{
+                margin: 20px;
+                font-size: 30px;
+            }
+            input{
+                margin: 20px;
+                padding: 10px;
+            }
+            button{
+                text-decoration: none;
+                border: 3px solid rgb(0, 188, 140);
+                border-radius:10px;
+                padding: 15px 25px;  
+                background-color: transparent;
+                color: rgb(0, 188, 140);
+                margin: 40px;
+            }
+            button:hover{
+                border: 3px solid white;
+                color: white;
+            }
+
+        }
+        #agre{
+            
         }
     </style>
 </head>

@@ -24,12 +24,12 @@
     }else{
 ?>
 <main>
-    <section id="pagina_usu">
+    <section id="pagina_usu2">
         <h1>Bienvenido al Panel Principal</h1>
         <nav>
             <ul>
                 <li><a href="index.php?action=listaContactos">Lista de Contactos</a></li>
-                <li><a href="index.php?action=listaUsuariosAdmin">Lista de Usuarios</a></li>
+                <li><a href="index.php?action=listaUsuariosAdmin">Listas de Usuarios</a></li>
             </ul>
         </nav>
     </section>
