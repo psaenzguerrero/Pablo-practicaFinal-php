@@ -16,6 +16,7 @@
             $this->apellidos;
             $this->fecha_nacimiento;   
         }
+        //Obtener todos los amigos de la tabla 
         public function obtenerAllAmigos() {  
             $sentencia = "SELECT nombre, apellidos, fecha_nacimiento, nombre_usuario, id_amigo FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usuario";       
             $consulta = $this->conn->__get("conn")->prepare($sentencia);           
@@ -30,6 +31,7 @@
             $consulta->close();
             return $amigos;
         }
+        //Obtener amigos por cada usuario
         public function obtenerAmigos(int $id_usuario) {           
             $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_usuario = ?";            
             $consulta = $this->conn->__get("conn")->prepare($sentencia);           
@@ -45,6 +47,7 @@
             $consulta->close();
             return $amigos;
         }
+        //obtener un amigo en concreto
         public function obtenerPorId($id_amigo) {
             $sentencia = "SELECT nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_amigo = ?";
             $consulta = $this->conn->__get('conn')->prepare($sentencia); // Usamos la conexión desde la clase `bd`
@@ -55,6 +58,7 @@
             $consulta->close();
             return $amigo;
         }
+        //Modificar el amigo seleccionado siendo usuario
         public function actualizar($id_amigo, $nombre, $apellidos, $fechaNacimiento) {
             $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE id_amigo = ?";
             $consulta = $this->conn->__get('conn')->prepare($sentencia);
@@ -62,6 +66,7 @@
             $consulta->execute();
             $consulta->close();
         }
+        //Modificar el amigo seleccionado siendo admin
         public function actualizarAdmin($id_amigo, $id_usuario, $nombre, $apellidos, $fechaNacimiento) {
             $sentencia = "UPDATE amigos SET id_usuario = ?, nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE id_amigo = ?";
             $consulta = $this->conn->__get('conn')->prepare($sentencia);
@@ -69,12 +74,14 @@
             $consulta->execute();
             $consulta->close();
         }
+        //Agregar el amigo nuevo
         public function insertar($id_usuario, $nombre, $apellidos, $fecha_nacimiento) {
             $sentencia = "INSERT INTO amigos (id_usuario, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?)";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("isss", $id_usuario, $nombre, $apellidos, $fecha_nacimiento);
             return $consulta->execute();
         }
+        //Buscador de amigo de usuario normal
         public function buscarAmigos($busqueda, $id_usuario) {
             $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento 
                     FROM amigos 
@@ -92,6 +99,7 @@
             $consulta->close();
             return $amigos;
         }
+        //Buscador de amigo de usuario admin
         public function buscarAmigosAdmin($busqueda) {
             $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento, nombre_usuario
                     FROM amigos, usuarios 

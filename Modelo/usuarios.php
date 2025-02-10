@@ -13,6 +13,7 @@
             $this->contrasena;
             $this->tipo;
         }
+        //Obtener el id del usuario con los datos que nos pase de la vista de login
         public function login(String $nombre_usuario, String $contrasena) {
             $sentencia = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
@@ -22,6 +23,7 @@
             $consulta->fetch();
             return $res;     
         }
+        //Obtener todos los usuarios de la base datos
         public function obtenerUsuarios(){
             $sentencia ="SELECT id_usuario, nombre_usuario, contrasena, tipo FROM usuarios";
             $consulta=$this->conn->__get("conn")->prepare($sentencia);
@@ -34,6 +36,7 @@
             $consulta->close();
             return $usuarios;
         }
+        //Obtener el tipo de usuario 
         public function obtenerTipoUsu($id_usuario){
             $sentencia ="SELECT tipo FROM usuarios WHERE id_usuario=?;";
             $consulta=$this->conn->__get("conn")->prepare($sentencia);
@@ -43,6 +46,7 @@
             $consulta->fetch();
             return $tip;
         }
+        //obtener el id del usuario
         public function obtenerId($nombre_usuario){
             $sentencia="SELECT id_usuario FROM usuarios WHERE nombre_usuario=?;";
             $consulta=$this->conn->__get("conn")->prepare($sentencia);
@@ -52,12 +56,14 @@
             $consulta->fetch();
             return $id_usuario;
         }
+        //Insertar usuario
         public function insertar($nombre_usuario, $contrasena) {
             $sentencia = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES (?, ?)";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("ss", $nombre_usuario, $contrasena);
             return $consulta->execute();
         }
+        //Obtener los datos del usuarios
         public function obtenerPorId($id_usuario) {
             $sentencia = "SELECT nombre_usuario, contrasena FROM usuarios WHERE id_usuario = ?";
             $consulta = $this->conn->__get('conn')->prepare($sentencia); // Usamos la conexión desde la clase `bd`
@@ -68,6 +74,7 @@
             $consulta->close();
             return $usuario;
         }
+        //Modificar los usarios
         public function actualizar($nombre_usuario, $contrasena, $id_usuario) {
             $sentencia = "UPDATE usuarios SET nombre_usuario = ?, contrasena = ? WHERE id_usuario = ?";
             $consulta = $this->conn->__get('conn')->prepare($sentencia);
@@ -75,6 +82,7 @@
             $consulta->execute();
             $consulta->close();
         }
+        //Seleccionar los usuarios para el buscador
         public function buscarUsuarios($busqueda) {
             $sentencia = "SELECT id_usuario, nombre_usuario, contrasena 
                     FROM usuarios 
