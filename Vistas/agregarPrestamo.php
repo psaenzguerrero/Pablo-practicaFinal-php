@@ -25,8 +25,7 @@
                         <option value="<?= $juego[4] ?>"><?= $juego[0] ?></option>
                     <?php endforeach; ?>
                 </select>
-                <br>
-
+                <br>       
                 <label for="fecha_prestamo">Fecha de Préstamo:</label>
                 <input type="date" name="fecha_prestamo" required>
                 <br>
@@ -64,7 +63,6 @@
                     <?php endforeach; ?>
                 </select>
                 <br>
-
                 <label for="fecha_prestamo">Fecha de Préstamo:</label>
                 <input type="date" name="fecha_prestamo" value="<?= $prestamos["fecha_prestamo"] ?>" required>
                 <br>
