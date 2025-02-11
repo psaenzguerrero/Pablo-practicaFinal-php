@@ -19,6 +19,22 @@
             $consulta->close();
             return $juegos;
         }
+        //Obtener juegos comprombando si esta devuelto o no
+        public function obtenerJuegosPres(int $id_usuario){
+            $sentencia ="SELECT juegos.id_juego, titulo, plataforma, anio_lanzamiento, foto 
+            FROM juegos   
+            WHERE juegos.id_usuario= ? AND id_juego NOT IN (SELECT id_juego FROM prestamos WHERE devuelto=0);";
+            $consulta=$this->conn->__get("conn")->prepare($sentencia);
+            $consulta->bind_param("i",$id_usuario);
+            $consulta->bind_result($id_juego, $titulo, $plataforma, $anio_lanzamiento, $foto);
+            $juegos = array();
+            $consulta->execute();
+            while($consulta->fetch()){
+                array_push($juegos, [$titulo, $plataforma, $anio_lanzamiento, $foto, $id_juego]);
+            };
+            $consulta->close();
+            return $juegos;
+        }
         //Insertar un nuevo juego para el usuario
         public function insertar($id_usuario, $titulo, $plataforma, $anio_lanzamiento, $foto){
             $sentencia = "INSERT INTO juegos (id_usuario, titulo, plataforma, anio_lanzamiento, foto) VALUES (?, ?, ?, ?,?)";

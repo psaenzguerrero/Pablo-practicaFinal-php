@@ -64,7 +64,7 @@ function listaContactos(){
     require_once("../vistas/listaAmigos.php");
     require_once("../vistas/pie.html");
 }
-//Funcion para qu el admin pueda ver los usuarios de su pagina
+//Funcion para que el admin pueda ver los usuarios de su pagina
 function listaUsuariosAdmin(){
     session_start();
     $usuario = new Usuario();
@@ -537,7 +537,7 @@ function agregarPrestamo() {
     $amigo = new Amigo();
     $amigos = $amigo->obtenerAmigos($id_usuario);
     $juego = new Juego();
-    $juegos = $juego->obtenerJuegos($id_usuario);
+    $juegos = $juego->obtenerJuegosPres($id_usuario);
     //Comprobador de que si este el usuario registrado y si no lo esta redirecciona al inicio de sesion
     if (!isset($id_usuario)) {
         header("Location: index.php?action=login");
