@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2025 a las 20:06:51
+-- Tiempo de generación: 10-02-2025 a las 12:40:52
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -40,7 +40,7 @@ CREATE TABLE `amigos` (
 --
 
 INSERT INTO `amigos` (`id_amigo`, `id_usuario`, `nombre`, `apellidos`, `fecha_nacimiento`) VALUES
-(1, 5, 'Juan', 'Pérez García', '1990-05-15'),
+(1, 5, 'Juan23', 'Pérez García', '1990-05-17'),
 (2, 5, 'María', 'López Sánchez', '1985-07-22'),
 (3, 4, 'Carlos', 'Hernández Ruiz', '1992-11-03'),
 (4, 4, 'Laura', 'Martínez Gómez', '1988-02-19'),
@@ -57,7 +57,25 @@ INSERT INTO `amigos` (`id_amigo`, `id_usuario`, `nombre`, `apellidos`, `fecha_na
 (15, 3, 'Paula', 'Vargas Prieto', '1989-10-22'),
 (16, 4, 'Javier', 'Castro López', '1995-04-18'),
 (17, 5, 'Andreo', 'pelon', '2018-03-14'),
-(18, 3, 'p4', 'pelon', '2025-01-01');
+(18, 3, 'p4', 'pelon', '2025-01-01'),
+(19, 5, 'p6789', 'Pérez García', '2025-01-01'),
+(26, 3, 'p6', 'zzzzz', '2024-12-30'),
+(27, 3, 'p7', 'zzzzz', '2024-12-30'),
+(28, 5, 'p7', 'zzzzz', '2024-12-30'),
+(29, 5, 'p678', 'zzzzz66', '2024-12-29'),
+(30, 7, 'Pablo', 'saenz', '2002-11-16'),
+(31, 8, 'p4', 'dios', '2025-02-05'),
+(32, 5, 'Maite', 'Pérez García', '2025-02-27'),
+(33, 5, 'p2', 'pelon', '2025-02-19'),
+(34, 5, 'prsgahisrgal', 'kjdfsugidsl', '2025-02-19'),
+(35, 5, 'p8', 'p8', '2025-02-03'),
+(36, 5, 'p9', 'p9', '2025-02-03'),
+(37, 5, 'p10', 'p10', '2025-02-05'),
+(38, 5, 'p11', 'p11', '2025-02-06'),
+(39, 5, 'p12', 'p12', '2025-02-21'),
+(40, 5, 'p11', 'p11', '2025-02-07'),
+(41, 5, 'p13', 'p13', '2024-12-04'),
+(42, 5, 'p14', 'p14', '2025-01-09');
 
 -- --------------------------------------------------------
 
@@ -80,11 +98,11 @@ CREATE TABLE `juegos` (
 
 INSERT INTO `juegos` (`id_juego`, `id_usuario`, `titulo`, `plataforma`, `anio_lanzamiento`, `foto`) VALUES
 (1, 4, 'The Legend of Zelda: Breath of the Wild', 'Nintendo Switch', '2017', 'zelda_breath.jpg'),
-(2, 5, 'God of War', 'PlayStation 4', '2018', 'god_of_war.jpg'),
+(2, 5, 'God of War2', 'PlayStation 4', '2018', 'god_of_war.jpg'),
 (3, 3, 'Halo Infinite', 'Xbox Series X', '2021', 'halo_infinite.jpg'),
 (4, 4, 'Elden Ring', 'PlayStation 5', '2022', 'elden_ring.jpg'),
 (5, 4, 'Cyberpunk 2077', 'PC', '2020', 'cyberpunk_2077.jpg'),
-(6, 5, 'Animal Crossing: New Horizons', 'Nintendo Switch', '2020', 'animal_crossing.jpg'),
+(6, 5, 'Animal Crossing: NH', 'Nintendo Switch', '2020', 'animal_crossing.jpg'),
 (7, 3, 'Red Dead Redemption 2', 'PC', '2018', 'rdr2.jpg'),
 (8, 3, 'Minecraft', 'PC', '2011', 'minecraft.jpg'),
 (9, 3, 'The Last of Us Part II', 'PlayStation 4', '2020', 'tlou2.jpg'),
@@ -94,12 +112,23 @@ INSERT INTO `juegos` (`id_juego`, `id_usuario`, `titulo`, `plataforma`, `anio_la
 (13, 4, 'Fortnite', 'PC', '2017', 'fortnite.jpg'),
 (14, 3, 'Apex Legends', 'PC', '2019', 'apex_legends.jpg'),
 (15, 4, 'Call of Duty: Modern Warfare II', 'PlayStation 5', '2022', 'cod_mw2.jpg'),
-(16, 5, 'Among Us', 'PC', '2018', 'among_us.jpg'),
+(16, 5, 'Among Us', 'PlayStation 4', '2018', 'among_us.jpg'),
 (17, 5, 'Stardew Valley', 'PC', '2016', 'stardew_valley.jpg'),
 (18, 5, 'The Witcher 3: Wild Hunt', 'PC', '2015', 'witcher3.jpg'),
 (19, 3, 'Sekiro: Shadows Die Twice', 'PC', '2019', 'sekiro.jpg'),
 (20, 4, 'FIFA 23', 'PlayStation 5', '2022', 'fifa23.jpg'),
-(21, 5, 'coockie clicker', 'PC', '2003', 'coockie.jpg');
+(21, 5, 'coockie clicker', 'PC', '2003', 'coockie.jpg'),
+(22, 3, 'fun', 'PC', '1971', 'coockie.jpg'),
+(23, 3, 'j1', 'PC', '2012', 'imgagen.jpg'),
+(24, 5, 'fun', 'PC', '2030', 'among_us.jpg'),
+(25, 3, 'fun', 'PC', '2012', 'among_us.jpg'),
+(26, 3, 'fun', 'PC', '2013', 'cyberpunk_2077.jpg'),
+(27, 3, 'fun', 'PlayStation 4', '0000', 'Fortnite.jpg'),
+(28, 3, 'fun2', 'PlayStation 4', '2025', NULL),
+(29, 3, 'php', 'PlayStation 45', '2040', NULL),
+(30, 5, 'God of War2', 'PlayStation 4', '2016', 'Array'),
+(31, 5, 'God of War22', 'PC', '2015', 'god_of_war.jpg'),
+(32, 5, 'the witcher3', 'PC', '2015', 'witcher3.jpg');
 
 -- --------------------------------------------------------
 
@@ -121,16 +150,21 @@ CREATE TABLE `prestamos` (
 --
 
 INSERT INTO `prestamos` (`id_prestamo`, `id_usuario`, `id_amigo`, `id_juego`, `fecha_prestamo`, `devuelto`) VALUES
-(1, 5, 1, 3, '2023-10-15', 0),
+(1, 5, 19, 2, '2025-02-05', 1),
 (2, 4, 4, 2, '2023-11-20', 0),
 (3, 3, 9, 5, '2023-09-10', 1),
 (4, 4, 12, 8, '2023-07-01', 0),
 (5, 4, 10, 6, '2023-12-05', 0),
-(6, 3, 8, 4, '2024-01-01', 0),
+(6, 3, 8, 3, '2024-01-01', 1),
 (7, 3, 7, 2, '2023-06-12', 1),
 (8, 4, 5, 7, '2023-08-21', 0),
-(9, 5, 13, 1, '2023-05-10', 1),
-(10, 3, 18, 9, '2024-01-20', 0);
+(9, 5, 13, 16, '2023-05-10', 1),
+(10, 3, 18, 9, '2024-01-20', 1),
+(15, 5, 1, 11, '2025-02-01', 1),
+(16, 5, 13, 17, '2025-02-01', 1),
+(17, 3, 18, 22, '2025-02-04', 0),
+(18, 3, 6, 14, '2025-02-05', 0),
+(19, 5, 1, 24, '2025-02-04', 0);
 
 -- --------------------------------------------------------
 
@@ -154,7 +188,10 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `contrasena`, `tipo`) VA
 (2, 'admin2', 'admin2', 'admin'),
 (3, 'user1', 'user1', 'usuario'),
 (4, 'user2', 'user2', 'usuario'),
-(5, 'carlitos', '12345', 'usuario');
+(5, 'carlitos', '12345', 'usuario'),
+(6, 'Maite', '12345', 'usuario'),
+(7, 'Jaled', 'presi2', 'usuario'),
+(8, 'user3', 'user3', 'usuario');
 
 --
 -- Índices para tablas volcadas
@@ -203,25 +240,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id_amigo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_amigo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `id_juego` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_juego` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id_prestamo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_prestamo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
