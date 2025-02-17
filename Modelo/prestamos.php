@@ -79,5 +79,11 @@
             $consulta->close();
             return $prestamos;
         }
+        // public function eliminarPrestamo($id_prestamo) {
+        //     $sentencia = "DELETE FROM prestamos WHERE id_prestamo = ?";
+        //     $consulta = $this->conn->__get('conn')->prepare($sentencia);
+        //     $consulta->bind_param("i", $id_prestamo);
+        //     return $consulta->execute();
+        // }
     }
             

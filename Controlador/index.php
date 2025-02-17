@@ -659,6 +659,21 @@ function buscadorPrestamos(){
         require_once("../vistas/buscadorPrestamos.php");
         require_once("../vistas/pie.html");   
 }
+// function eliminarPrestamo() {
+//     session_start();
+//     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+//         $id_prestamo = $_POST["id_prestamo"];
+//         $prestamoModel = new Prestamo();
+//         $prestamoModel->eliminarPrestamo($id_prestamo);
+//         header("Location: index.php?action=listaPrestamos");
+//         exit;
+//     } else {
+//         echo "Error: Datos inválidos.";
+//         require_once("../vistas/cabeza.php");
+//         require_once("../vistas/agregarPrestamo.php");
+//         require_once("../vistas/pie.html");
+//     }
+// }
 //Esto es la piedra angular del controlador, con esto llamo y me muevo entre las funciones usando los action como variable.
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
