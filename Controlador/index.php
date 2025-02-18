@@ -1,5 +1,6 @@
 <?php
-// Requiere los modelos necesarios
+//Esto acuerdate de ponerlos solo en las funciones que necesitas las llamadas
+// Requiere de los modelos necesarios
 require_once("../modelo/usuarios.php");
 require_once("../modelo/amigos.php");
 require_once("../modelo/juegos.php");
@@ -659,7 +660,7 @@ function buscadorPrestamos(){
         require_once("../vistas/buscadorPrestamos.php");
         require_once("../vistas/pie.html");   
 }
-// function eliminarPrestamo() {
+// function eliminarPrestamo() { '^(?=(.*[0-9]){2,})(?=.*[A-Z])(?=(.*[\W_]){3,}).{8,20}$'
 //     session_start();
 //     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
 //         $id_prestamo = $_POST["id_prestamo"];
