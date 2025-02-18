@@ -9,16 +9,16 @@
         }
         //Obtener préstamos por id_usuario
         public function obtenerPrestamos(int $id_usuario) {
-            $sentencia ="SELECT amigos.nombre, juegos.titulo, juegos.foto, fecha_prestamo, devuelto, id_prestamo, prestamos.id_amigo, prestamos.id_juego FROM amigos, juegos, prestamos WHERE prestamos.id_amigo=amigos.id_amigo AND prestamos.id_juego=juegos.id_juego AND prestamos.id_usuario=?;";
+            $sentencia ="SELECT amigos.nombre, juegos.titulo, juegos.foto, fecha_prestamo, devuelto, id_prestamo, prestamos.id_amigo, prestamos.id_juego, puntuacion FROM amigos, juegos, prestamos WHERE prestamos.id_amigo=amigos.id_amigo AND prestamos.id_juego=juegos.id_juego AND prestamos.id_usuario=?;";
             $consulta = $this->conn->__get("conn")->prepare($sentencia);
             $consulta->bind_param("i", $id_usuario);
-            $consulta->bind_result($res, $res2, $res3, $res4, $res5, $res6, $res7, $res8);
+            $consulta->bind_result($res, $res2, $res3, $res4, $res5, $res6, $res7, $res8, $res9);
             $prestamos = array();
             $consulta->execute();
             while($consulta->fetch()){
                 $fech = strtotime($res4);
                 $res4 = date('d-m-Y', $fech);
-                array_push($prestamos, [$res, $res2, $res3, $res4, $res5, $res6, $res7, $res8]);
+                array_push($prestamos, [$res, $res2, $res3, $res4, $res5, $res6, $res7, $res8, $res9]);
             };
             $consulta->close();
             return $prestamos;
@@ -59,6 +59,14 @@
             $consulta->close();
             return $resultado;
         }
+        public function modificarNota($id_prestamo, $puntuacion){
+            $sentencia = "UPDATE prestamos SET puntuacion = ? WHERE id_prestamo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param("di", $puntuacion, $id_prestamo);
+            $resultado=$consulta->execute();
+            $consulta->close();
+            return $resultado;
+        }
         //Buscador de prestamos segun el nombre o la plataforma
         public function buscarPrestamos($busqueda, $id_usuario) {
             $sentencia = "SELECT id_prestamo, amigos.nombre, juegos.titulo, fecha_prestamo, foto, devuelto 
@@ -79,11 +87,12 @@
             $consulta->close();
             return $prestamos;
         }
-        // public function eliminarPrestamo($id_prestamo) {
-        //     $sentencia = "DELETE FROM prestamos WHERE id_prestamo = ?";
-        //     $consulta = $this->conn->__get('conn')->prepare($sentencia);
-        //     $consulta->bind_param("i", $id_prestamo);
-        //     return $consulta->execute();
-        // }
+        public function suma(){
+            $sentencia = "SELECT (SUM(`puntuacion`))/(COUNT(`id_amigo`)) FROM prestamos GROUP BY id_amigo";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->execute();
+            $consulta->close();
+            return $consulta;
+        }
     }
             

@@ -18,9 +18,25 @@
         }
         //Obtener todos los amigos de la tabla 
         public function obtenerAllAmigos() {  
-            $sentencia = "SELECT nombre, apellidos, fecha_nacimiento, nombre_usuario, id_amigo FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usuario";       
+            $sentencia = "SELECT nombre, apellidos, fecha_nacimiento, nombre_usuario, id_amigo, verificado FROM amigos, usuarios WHERE amigos.id_usuario=usuarios.id_usuario";       
             $consulta = $this->conn->__get("conn")->prepare($sentencia);           
-            $consulta->bind_result($res, $res2, $res3, $res4, $res5);
+            $consulta->bind_result($res, $res2, $res3, $res4, $res5, $res6);
+            $amigos = array();
+            $consulta->execute();
+            while($consulta->fetch()){
+                $fech = strtotime($res3);
+                $res3 = date('d-m-Y', $fech);
+                array_push($amigos, [$res, $res2, $res3, $res4, $res5, $res6]);
+            };
+            $consulta->close();
+            return $amigos;
+        }
+        //Obtener amigos por cada usuario
+        public function obtenerAmigos(int $id_usuario) {           
+            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento, media FROM amigos WHERE id_usuario = ? AND verificado = 1";            
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);           
+            $consulta->bind_param("i", $id_usuario);            
+            $consulta->bind_result($res4, $res, $res2, $res3, $res5);
             $amigos = array();
             $consulta->execute();
             while($consulta->fetch()){
@@ -31,9 +47,23 @@
             $consulta->close();
             return $amigos;
         }
-        //Obtener amigos por cada usuario
-        public function obtenerAmigos(int $id_usuario) {           
-            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_usuario = ?";            
+        public function obtenerAmigosOrdenNacimiento(int $id_usuario) {           
+            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_usuario = ? AND verificado = 1 ORDER BY nombre ASC";            
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);           
+            $consulta->bind_param("i", $id_usuario);            
+            $consulta->bind_result($res4, $res, $res2, $res3);
+            $amigos = array();
+            $consulta->execute();
+            while($consulta->fetch()){
+                $fech = strtotime($res3);
+                $res3 = date('d-m-Y', $fech);
+                array_push($amigos, [$res, $res2, $res3, $res4]);
+            };
+            $consulta->close();
+            return $amigos;
+        }
+        public function obtenerAmigosOrdenFecha(int $id_usuario) {           
+            $sentencia = "SELECT id_amigo, nombre, apellidos, fecha_nacimiento FROM amigos WHERE id_usuario = ? AND verificado = 1 ORDER BY fecha_nacimiento ASC";            
             $consulta = $this->conn->__get("conn")->prepare($sentencia);           
             $consulta->bind_param("i", $id_usuario);            
             $consulta->bind_result($res4, $res, $res2, $res3);
@@ -117,4 +147,20 @@
             $consulta->close();
             return $amigos;
         }
+        public function verificar($id_amigo, $verificado){
+            $sentencia = "UPDATE amigos SET verificado = ? WHERE id_amigo = ?";
+            $consulta = $this->conn->__get('conn')->prepare($sentencia);
+            $consulta->bind_param("ii", $verificado, $id_amigo);
+            $resultado=$consulta->execute();
+            $consulta->close();
+            return $resultado;
+        }
+        public function sumar(){
+            $sentencia = "SELECT id_amigo, (SUM(`puntuacion`))/(COUNT(`id_amigo`)) FROM prestamos GROUP BY id_amigo";
+            $consulta = $this->conn->__get("conn")->prepare($sentencia);
+            $consulta->execute();
+            $consulta->close();
+            return $consulta;
+        }
+        
     }

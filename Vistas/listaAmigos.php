@@ -15,6 +15,7 @@
                                 <th class="text-warning px-5 py-3">FECHA DE NACIMIENTO</th>
                                 <th class="text-warning px-5 py-3">MODIFICAR</th>
                                 <th style="display:none">id-amigo</th>
+                                <th class="text-warning px-5 py-3">PUNTUACION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +31,17 @@
                                             <input type="hidden" name="id_amigo" value="<?= $amigo[3] ?>">
                                             <input type="submit" value="Modificar" class="btn btn-outline-light">
                                         </form>
-                                    </td>
+                                    </td>                                  
+                                        <?php foreach ($amigos2 as $amigo2): ?>
+                                            <?php if ($amigo2[0]===$amigo[3]) {
+                                            ?>
+                                            <td class="text-center px-5 py-3">
+                                                <?php echo"$amigo2[1]" ?>
+                                            </td>
+                                            <?php
+                                            }
+                                            ?>   
+                                        <?php endforeach; ?>                                   
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -40,6 +51,8 @@
                 <?php endif; ?>
             <?php endif; ?>
             <div>
+                <a href="index.php?action=listaAmigosOrdenFecha">Orden Fecha</a>
+                <a href="index.php?action=listaAmigosOrdenNacimiento">Orden Alfabético</a>
                 <a href="index.php?action=agregarAmigo">Agregar Amigo</a>
                 <form action="index.php?action=buscadorAmigos" method="post">
                 <input type="submit" value="Buscar">
@@ -76,6 +89,19 @@
                                     <td class="px-5 py-3"><?= $amigo[3] ?></td>
                                     <td style="display:none"><?= $amigo[4] ?></td>
                                     <td class="px-5 py-3">
+                                        <?php
+                                            if ($amigo[5]==0) {
+                                                ?>
+                                                <form action="index.php?action=validar" method="post">
+                                                    <input type="hidden" name="id_amigo" value="<?= $amigo[4] ?>">
+                                                    <input type="submit" value="Validar" class="btn btn-outline-light">
+                                                </form>
+                                        <?php        
+                                            }
+                                        ?>
+                                        
+                                    </td>
+                                    <td class="px-5 py-3">
                                         <form action="index.php?action=modificarAmigoAdmin" method="post">
                                             <input type="hidden" name="nombre_usuario" value="<?= $amigo[3] ?>">
                                             <input type="hidden" name="id_amigo" value="<?= $amigo[4] ?>">
@@ -91,6 +117,7 @@
                 <?php endif; ?>
             <?php endif; ?>
             <div>
+                
                 <a href="index.php?action=agregarAmigoAdmin">Agregar Contacto</a>
                 <form action="index.php?action=buscadorAmigos" method="post">
                 <input type="submit" value="Buscar">

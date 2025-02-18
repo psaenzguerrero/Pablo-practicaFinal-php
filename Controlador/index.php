@@ -168,16 +168,50 @@ function listaAmigos() {
     session_start();
     $amigo = new Amigo();
     $id_usuario = $_SESSION["id_usuario"];
+    $prestamo = new Prestamo();
     if (!isset($_SESSION["id_usuario"])) {
         header("Location: index.php?action=login");
         exit;
     }else{
         $amigos = $amigo->obtenerAmigos($id_usuario);
+        $amigos2 = $amigo->sumar();
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/listaAmigos.php");
+        require_once("../vistas/pie.html");
+        
+    }
+}
+
+function listaAmigosOrdenNacimiento() {
+    session_start();
+    $amigo = new Amigo();
+    $id_usuario = $_SESSION["id_usuario"];
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }else{
+        $amigos = $amigo->obtenerAmigosOrdenNacimiento($id_usuario);
         require_once("../vistas/cabeza.php");
         require_once("../vistas/listaAmigos.php");
         require_once("../vistas/pie.html");
     }
 }
+function listaAmigosOrdenFecha() {
+    session_start();
+    $amigo = new Amigo();
+    $id_usuario = $_SESSION["id_usuario"];
+    if (!isset($_SESSION["id_usuario"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }else{
+        $amigos = $amigo->obtenerAmigosOrdenFecha($id_usuario);
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/listaAmigos.php");
+        require_once("../vistas/pie.html");
+    }
+}
+
+
 //Funcion de redirigir a la lista de amigos o de contactos con los datos de la buscada
 function buscarAmigos() {
     session_start();
@@ -218,6 +252,7 @@ function agregarAmigo() {
         $apellidos = $_POST["apellidos"];
         $fecha_nacimiento = $_POST["fecha_nacimiento"];
         $amigo = new Amigo();
+        //Comprobador de que la fecha no es mayor al dia actual
         $fecha = strtotime($fecha_nacimiento);
         $fecha_actual = time();
         if ($fecha>$fecha_actual) {
@@ -660,21 +695,51 @@ function buscadorPrestamos(){
         require_once("../vistas/buscadorPrestamos.php");
         require_once("../vistas/pie.html");   
 }
-// function eliminarPrestamo() { '^(?=(.*[0-9]){2,})(?=.*[A-Z])(?=(.*[\W_]){3,}).{8,20}$'
-//     session_start();
-//     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
-//         $id_prestamo = $_POST["id_prestamo"];
-//         $prestamoModel = new Prestamo();
-//         $prestamoModel->eliminarPrestamo($id_prestamo);
-//         header("Location: index.php?action=listaPrestamos");
-//         exit;
-//     } else {
-//         echo "Error: Datos inválidos.";
-//         require_once("../vistas/cabeza.php");
-//         require_once("../vistas/agregarPrestamo.php");
-//         require_once("../vistas/pie.html");
-//     }
-// }
+
+function modificarNota(){
+    session_start(); 
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id_prestamo"])) {
+        $id_prestamo = $_POST["id_prestamo"];
+        $puntuacion = $_POST["puntuacion"];
+
+        if ($puntuacion>5) {
+            echo "Error: Datos inválidos.";
+            header("Location: index.php?action=listaPrestamos");
+        }elseif ($puntuacion<0) {
+            echo "Error: Datos inválidos.";
+            header("Location: index.php?action=listaPrestamos");
+        }else {
+            $prestamo = new Prestamo();
+
+            $prestamos = $prestamo->modificarNota($id_prestamo, $puntuacion);
+            header("Location: index.php?action=listaPrestamos");
+            exit;
+        }
+
+        
+    } else {
+        echo "Error: Datos inválidos.";
+        require_once("../vistas/cabeza.php");
+        require_once("../vistas/listaPrestamo.php");
+        require_once("../vistas/pie.html");
+    }
+}
+function validar(){
+    session_start();
+        if (!isset($_SESSION["id_usuario"])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
+        $id_usuario = $_SESSION["id_usuario"];
+        $id_amigo = $_POST["id_amigo"];
+        $verificado = 1;
+        $amigo = new Amigo();
+        $amigos = $amigo->verificar($id_amigo, $verificado);
+        header("Location: index.php?action=listaContactos");
+        exit;
+
+
+}
 //Esto es la piedra angular del controlador, con esto llamo y me muevo entre las funciones usando los action como variable.
 if (isset($_REQUEST["action"])) {
     $action = strtolower($_REQUEST["action"]);
